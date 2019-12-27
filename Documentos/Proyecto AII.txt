@@ -1,0 +1,53 @@
+=======================================================================================================================================================================
+-----------------------------------------------------------------------------JSGames-----------------------------------------------------------------------------------
+=======================================================================================================================================================================
+
+========================
+ENLACES IMPORTANTES
+========================
+
+WEB_JUEGOS: https://www.eneba.com/es/
+WEB_CONSOLAS: https://www.game.es/VIDEOJUEGOS/CONSOLAS
+
+LINK A JUEGOS PC: https://www.eneba.com/es/store/steam-games
+LINK A JUEGOS XBOX: https://www.eneba.com/es/store/xbox-games
+LINK A JUEGOS SWITCH: https://www.eneba.com/es/store?page=2&platforms[]=NINTENDO&types[]=game
+LINK A JUEGOS PS4: https://www.eneba.com/es/store/psn-games
+
+ - MEJOR OBTENERLAS AL MOMENTO SUELEN CAMBIAR - 
+LINK A NINTENDO SWITCH: https://www.game.es/buscar/NINTENDO-SWITCH-CONSOLA/o=0&cf=:GIa_New:-6aDS,0000000022:2aDS
+LINK A PS4: https://www.game.es/buscar/consolas-ps4/o=0&cf=Disponible:-5:GIDS
+LINK A XBOX ONE: https://www.game.es/buscar/skus/157803,163268,166972,154127,162738,157802,153183,150145,146147,171349,171352,170542,163269,139607,153184,156281,171350,171353,170539
+LINK A PC: https://www.game.es/buscar/ordenadores/o=0&cf=Disponible:-5:GIDS
+
+========================	
+ATRIBUTOS DE LAS CLASES
+========================
+
+-CLASE JUEGO- 
+
+	-NOMBRE - String - NotBlank
+	-PRECIO (SI NO HAY DISPONIBILIDAD EN ENEBA SE AÑADIRA UN 'NO DISPONIBLE') - String - NotBlank
+	-NOMBRE_PLATAFORMA (PLAYSTATION 4 - XBOX ONE - PC - NINTENDO SWITCH) - NotBlank
+	-GENERO - List<String> - NotBlank
+	-URL_PRODUCTO - @Url/String NotBlank
+	-IMG - @Url/String - NotBlank
+	-FECHA_DE_LANZAMIENTO - Date - NotBlank
+	-DESARROLLADOR - String - NotBlank
+
+-CLASE CONSOLA-
+
+	-NOMBRE - String - NotBlank
+	-PRECIO - (SI NO HAY DISPONIBILIDAD EN ENEBA SE AÑADIRA UN 'NO DISPONIBLE') - String - NotBlank
+	-URL_PRODUCTO - @Url/String - NotBlank
+	-IMG - @Url/String - NotBlank
+	-DESCRIPCIÓN - String - SiBlank
+
+-CLASE CLIENTE- 
+
+	-HEREDE DE TODO EL USER DE DJANGO (USERNAME, LASTNAME, ...)
+	-CONSOLAS - List<String> - SiBlank
+	-VIDEOJUEGOS - List<String> - SiBlank 
+	-LISTADO DE DESEOS - List<String> - SiBlank
+	
+
