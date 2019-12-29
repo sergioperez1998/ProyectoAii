@@ -16,12 +16,50 @@ def eliminadorDiacriticos(cadena):
     s = normalize('NFC', s)
     return s
 
-def datosJuegosPc():
+def multiPaginaJuegosPc():
+    
+    i=1
+    numeroPaginas=2
+
+    diccionario={
+       "Nombres":{},
+        "Precios":{},
+        "Plataforma":"Pc",
+        "Generos":{},
+        "Url":{},
+        "Imagenes":{},
+        "FechaLanzamiento":{},
+        "GenerosPagina":{}
+    }
+    
+    while i<numeroPaginas+1:
+
+        url="https://www.eneba.com/es/store?page="+str(i)+"&platforms[]=STEAM&types[]=game"
+        if i == 1:
+            diccionario=datosJuegosPc(url)
+        else:
+            diccionario["Nombres"].extend(datosJuegosPc(url)["Nombres"])
+            diccionario["Precios"].extend(datosJuegosPc(url)["Precios"])
+            diccionario["Generos"].extend(datosJuegosPc(url)["Generos"])
+            diccionario["Url"].extend(datosJuegosPc(url)["Url"])
+            diccionario["Imagenes"].extend(datosJuegosPc(url)["Imagenes"])
+            diccionario["FechaLanzamiento"].extend(datosJuegosPc(url)["FechaLanzamiento"])
+            lista=diccionario["GenerosPagina"]
+            for genero in datosJuegosPc(url)["GenerosPagina"]:
+                if genero not in lista:
+                    lista.append(genero)
+                    diccionario["GenerosPagina"] = lista
+        i=i+1
+
+    return diccionario
+
+
+def datosJuegosPc(urlJuegosPc):
 
     urlBasica="https://www.eneba.com"
-    urlJuegosPc = "https://www.eneba.com/es/store?page=1&platforms[]=STEAM&types[]=game"
 
-    month = {	'Janauary':'01',
+
+    month = {	'January':'01',
 		'February':'02',
 		'March':'03',
 		'April':'04',
@@ -109,7 +147,7 @@ def datosJuegosXboxOne():
 
     urlJuegosXboxOne="https://www.eneba.com/es/store?page=1&platforms[]=XBOX&types[]=game"
 
-    month = {	'Janauary':'01',
+    month = {	'January':'01',
 		'February':'02',
 		'March':'03',
 		'April':'04',
@@ -197,7 +235,7 @@ def datosJuegosNintendoSwitch():
 
     urlJuegosNintendoSwitch="https://www.eneba.com/es/store?page=1&platforms[]=NINTENDO&types[]=game"
 
-    month = {	'Janauary':'01',
+    month = {	'January':'01',
 		'February':'02',
 		'March':'03',
 		'April':'04',
@@ -285,7 +323,7 @@ def datosJuegosPs4():
 
     urlJuegosPS4 = "https://www.eneba.com/es/store?page=1&platforms[]=PSN&types[]=game"
 
-    month = {	'Janauary':'01',
+    month = {	'January':'01',
 		'February':'02',
 		'March':'03',
 		'April':'04',
