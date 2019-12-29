@@ -28,13 +28,13 @@ ATRIBUTOS DE LAS CLASES
 
 	-NOMBRE - String - NotBlank
 	-PRECIO (SI NO HAY DISPONIBILIDAD EN ENEBA SE AÑADIRA UN 'NO DISPONIBLE') - String - NotBlank
-	-NOMBRE_PLATAFORMA (PLAYSTATION 4 - XBOX ONE - PC - NINTENDO SWITCH) - NotBlank
+	-PLATAFORMA (PLAYSTATION 4 - XBOX ONE - PC - NINTENDO SWITCH) - String - NotBlank
 	-GENERO - List<String> - NotBlank
 	-URL_PRODUCTO - @Url/String NotBlank
 	-IMG - @Url/String - NotBlank
 	-FECHA_DE_LANZAMIENTO - Date - NotBlank
-	-DESARROLLADOR - String - NotBlank
 
+#######No hace falta hacer scrapping añadimos nosotros los nombres a mano##########
 -CLASE CONSOLA-
 
 	-NOMBRE - String - NotBlank
@@ -48,6 +48,6 @@ ATRIBUTOS DE LAS CLASES
 	-HEREDE DE TODO EL USER DE DJANGO (USERNAME, LASTNAME, ...)
 	-CONSOLAS - List<String> - SiBlank
 	-VIDEOJUEGOS - List<String> - SiBlank 
-	-LISTADO DE DESEOS - List<String> - SiBlank
+	-#######LISTA_DE_DESEOS - List<String> - SiBlank########
 	
 
