@@ -41,7 +41,6 @@ def datosJuegosPc():
     listadoImagenesJuegosPc=[]
     listadoUrlJuegosPc=[]
     listadoPreciosJuegosPcActual=[]
-    listadoGenerosJuegoPc=[]
     listadoGenerosJuegoPcTotal=[]
     listadoGenerosPagina=[]
     listadoFechaLanzamientoJuegoPc=[]
@@ -72,28 +71,21 @@ def datosJuegosPc():
         listadoPreciosJuegosPcActual.append(precioJuegoPcAhora)
 
         for generos in soupJuegoPC.find_all("ul", attrs={"class":"_3w9_g5"}):
+            listadoGenerosJuegoPc=[]
             for generosJuegos in generos.find_all("li"):
                 genero=generosJuegos.a.get_text()
                 generoSerializado=eliminadorDiacriticos(genero)
                 if "A³" in generoSerializado:
                     generoSerializado="Accion"
                 listadoGenerosJuegoPc.append(generoSerializado)
-                listadoGenerosJuegoPcTotal.append(listadoGenerosJuegoPc)
                 if not(generoSerializado in listadoGenerosPagina):
                     listadoGenerosPagina.append(generoSerializado)
+            listadoGenerosJuegoPcTotal.append(listadoGenerosJuegoPc)
 
         fechaLanzamiento = soupJuegoPC.find("p", attrs={"class":"FpVQmt"})
         fechaLanzamientoJuegoPc=(fechaLanzamiento.get_text().split(" ")[1].strip(",")+"-"
             +month[fechaLanzamiento.get_text().split(" ")[0]]+"-"+fechaLanzamiento.get_text().split(" ")[2])
         listadoFechaLanzamientoJuegoPc.append(fechaLanzamientoJuegoPc)
-
-    #print(listadoNombresJuegosPc)
-    #print(listadoImagenesJuegosPc)
-    #print(listadoUrlJuegosPc)
-    #print(len(listadoPreciosJuegosPcActual))
-    #print(listadoGenerosJuegoPcTotal)
-    #print(listadoGenerosPc)
-    #print(listadoFechaLanzamientoJuegoPc)
 
     contenidoJuegosPc = {
         "Nombres":listadoNombresJuegosPc,
@@ -102,22 +94,113 @@ def datosJuegosPc():
         "Generos":listadoGenerosJuegoPcTotal,
         "Url":listadoUrlJuegosPc,
         "Imagenes":listadoImagenesJuegosPc,
-        "FechaLanzamiento":listadoFechaLanzamientoJuegoPc
+        "FechaLanzamiento":listadoFechaLanzamientoJuegoPc,
+        "GenerosPagina":listadoGenerosPagina
     }
 
     return contenidoJuegosPc
 
-def datosJuegoXboxOne():
+def datosJuegosXboxOne():
 
     urlBasica="https://www.eneba.com"
 
     urlJuegosXboxOne="https://www.eneba.com/es/store?page=1&platforms[]=XBOX&types[]=game"
-    #urlJuegosNintendoSwitch="https://www.eneba.com/es/store?page=1&platforms[]=NINTENDO&types[]=game"
-    #urlJuegosPS4 = "https://www.eneba.com/es/store/psn-games"
+
+    month = {	'Janauary':'01',
+		'February':'02',
+		'March':'03',
+		'April':'04',
+		'May':'05',
+		'June':'06',
+		'July':'07',
+		'August':'08',
+		'September':'09',
+		'October':'10',
+		'November':'11',
+		'December':'12'		}
 
     reqXbox = Request(urlJuegosXboxOne, headers={'User-Agent': 'Mozilla/5.0'})
     soupXbox = BeautifulSoup(urlopen(reqXbox).read().decode("latin-1"), 'html.parser')
 
-    print(soupXbox)
+    listadoNombresJuegosXboxOne=[]
+    listadoImagenesJuegosXboxOne=[]
+    listadoUrlJuegosXboxOne=[]
+    listadoPreciosJuegosXboxOneActual=[]
+    listadoGenerosJuegoXboxTotal=[]
+    listadoGenerosPagina=[]
+    listadoFechaLanzamientoJuegoXboxOne=[]
 
-datosJuegoXboxOne()
+    for juegos in soupXbox.find_all("div", attrs={"class":"_3M7T08"}):
+        for juego in juegos.find_all("div", attrs={"class":"_2rxjGA"}):
+            for datos1 in juego.find_all("div", attrs={"class":"_3shANq"}):
+                for nombre in datos1.find_all("div", attrs={"class":"_1ZwRcm"}):
+                    nombreJuego=nombre.span.get_text()
+                    nombreJuegoSerializado= eliminadorDiacriticos(nombreJuego)
+                    listadoNombresJuegosXboxOne.append(nombreJuegoSerializado)
+                for img in datos1.find_all("div", attrs={"class":"_2vZ2Ja _1p1I8b"}):
+                    imagenJuego=img.img.get("src")
+                    imagenJuegoSerializada = eliminadorDiacriticos(imagenJuego)
+                    listadoImagenesJuegosXboxOne.append(imagenJuegoSerializada)
+            for datos2 in juego.find_all("div", attrs={"class":"_12ISZC"}):
+                for url in datos2.find_all("a", attrs={"class":"_2idjXd"}):
+                    urlJuego=urlBasica + url.get("href")
+                    listadoUrlJuegosXboxOne.append(urlJuego)
+
+    for juegoXboxOne in listadoUrlJuegosXboxOne:
+
+        reqJuegoXboxOne = Request(juegoXboxOne, headers={'User-Agent': 'Mozilla/5.0'})
+        soupJuegoXboxOne = BeautifulSoup(urlopen(reqJuegoXboxOne).read().decode("latin-1"), 'html.parser')
+
+        precioJuegoAhora= soupJuegoXboxOne.find("span", attrs={"class":"_1fTsyE"})
+        precioJuegoXboxOneAhora = precioJuegoAhora.get_text().split("¬")[1]
+        listadoPreciosJuegosXboxOneActual.append(precioJuegoXboxOneAhora)
+
+        for generos in soupJuegoXboxOne.find_all("ul", attrs={"class":"_3w9_g5"}):
+            listadoGenerosJuegoXboxOne=[]
+            for generosJuegos in generos.find_all("li"):
+                genero=generosJuegos.a.get_text()
+                generoSerializado=eliminadorDiacriticos(genero)
+                if "A³" in generoSerializado:
+                    generoSerializado="Accion"
+                listadoGenerosJuegoXboxOne.append(generoSerializado)
+                if not(generoSerializado in listadoGenerosPagina):
+                    listadoGenerosPagina.append(generoSerializado)
+            listadoGenerosJuegoXboxTotal.append(listadoGenerosJuegoXboxOne)
+        
+        fechaLanzamiento = soupJuegoXboxOne.find("p", attrs={"class":"FpVQmt"})
+        fechaLanzamientoJuegoXboxOne=(fechaLanzamiento.get_text().split(" ")[1].strip(",")+"-"
+            +month[fechaLanzamiento.get_text().split(" ")[0]]+"-"+fechaLanzamiento.get_text().split(" ")[2])
+        listadoFechaLanzamientoJuegoXboxOne.append(fechaLanzamientoJuegoXboxOne)
+
+    contenidoJuegosXbox = {
+        "Nombres":listadoNombresJuegosXboxOne,
+        "Precios":listadoPreciosJuegosXboxOneActual,
+        "Plataforma":"Xbox One",
+        "Generos":listadoGenerosJuegoXboxTotal,
+        "Url":listadoUrlJuegosXboxOne,
+        "Imagenes":listadoImagenesJuegosXboxOne,
+        "FechaLanzamiento":listadoFechaLanzamientoJuegoXboxOne,
+        "GenerosPagina":listadoGenerosPagina
+    }
+
+    return contenidoJuegosXbox
+
+def datosJuegosNintendoSwitch():
+
+    urlBasica="https://www.eneba.com"
+
+    #urlJuegosNintendoSwitch="https://www.eneba.com/es/store?page=1&platforms[]=NINTENDO&types[]=game"
+    #urlJuegosPS4 = "https://www.eneba.com/es/store/psn-games"
+
+    month = {	'Janauary':'01',
+		'February':'02',
+		'March':'03',
+		'April':'04',
+		'May':'05',
+		'June':'06',
+		'July':'07',
+		'August':'08',
+		'September':'09',
+		'October':'10',
+		'November':'11',
+		'December':'12'		}
