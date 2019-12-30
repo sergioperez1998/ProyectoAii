@@ -16,48 +16,10 @@ def eliminadorDiacriticos(cadena):
     s = normalize('NFC', s)
     return s
 
-def multiPaginaJuegosPc():
-    
-    i=1
-    numeroPaginas=2
-
-    diccionario={
-       "Nombres":{},
-        "Precios":{},
-        "Plataforma":"Pc",
-        "Generos":{},
-        "Url":{},
-        "Imagenes":{},
-        "FechaLanzamiento":{},
-        "GenerosPagina":{}
-    }
-    
-    while i<numeroPaginas+1:
-
-        url="https://www.eneba.com/es/store?page="+str(i)+"&platforms[]=STEAM&types[]=game"
-        if i == 1:
-            diccionario=datosJuegosPc(url)
-        else:
-            diccionario["Nombres"].extend(datosJuegosPc(url)["Nombres"])
-            diccionario["Precios"].extend(datosJuegosPc(url)["Precios"])
-            diccionario["Generos"].extend(datosJuegosPc(url)["Generos"])
-            diccionario["Url"].extend(datosJuegosPc(url)["Url"])
-            diccionario["Imagenes"].extend(datosJuegosPc(url)["Imagenes"])
-            diccionario["FechaLanzamiento"].extend(datosJuegosPc(url)["FechaLanzamiento"])
-            lista=diccionario["GenerosPagina"]
-            for genero in datosJuegosPc(url)["GenerosPagina"]:
-                if genero not in lista:
-                    lista.append(genero)
-                    diccionario["GenerosPagina"] = lista
-        i=i+1
-
-    return diccionario
-
-
-def datosJuegosPc(urlJuegosPc):
+def datosJuegosPc():
 
     urlBasica="https://www.eneba.com"
-
+    urlJuegosPc="https://www.eneba.com/es/store?page=1&platforms[]=STEAM&types[]=game"
 
     month = {	'January':'01',
 		'February':'02',
@@ -141,46 +103,10 @@ def datosJuegosPc(urlJuegosPc):
 
     return contenidoJuegosPc
 
-def multiPaginaJuegosXboxOne():
-    
-    i=1
-    numeroPaginas=2
-
-    diccionario={
-       "Nombres":{},
-        "Precios":{},
-        "Plataforma":"Pc",
-        "Generos":{},
-        "Url":{},
-        "Imagenes":{},
-        "FechaLanzamiento":{},
-        "GenerosPagina":{}
-    }
-    
-    while i<numeroPaginas+1:
-
-        url="https://www.eneba.com/es/store?page="+str(i)+"&platforms[]=XBOX&types[]=game"
-        if i == 1:
-            diccionario=datosJuegosXboxOne(url)
-        else:
-            diccionario["Nombres"].extend(datosJuegosXboxOne(url)["Nombres"])
-            diccionario["Precios"].extend(datosJuegosXboxOne(url)["Precios"])
-            diccionario["Generos"].extend(datosJuegosXboxOne(url)["Generos"])
-            diccionario["Url"].extend(datosJuegosXboxOne(url)["Url"])
-            diccionario["Imagenes"].extend(datosJuegosXboxOne(url)["Imagenes"])
-            diccionario["FechaLanzamiento"].extend(datosJuegosXboxOne(url)["FechaLanzamiento"])
-            lista=diccionario["GenerosPagina"]
-            for genero in datosJuegosXboxOne(url)["GenerosPagina"]:
-                if genero not in lista:
-                    lista.append(genero)
-                    diccionario["GenerosPagina"] = lista
-        i=i+1
-
-    return diccionario
-
-def datosJuegosXboxOne(urlJuegosXboxOne):
+def datosJuegosXboxOne():
 
     urlBasica="https://www.eneba.com"
+    urlJuegosXboxOne="https://www.eneba.com/es/store?page=1&platforms[]=XBOX&types[]=game"
 
     month = {	'January':'01',
 		'February':'02',
@@ -264,46 +190,10 @@ def datosJuegosXboxOne(urlJuegosXboxOne):
 
     return contenidoJuegosXbox
 
-def multiPaginaJuegosNintendoSwitch():
-    
-    i=1
-    numeroPaginas=2
-
-    diccionario={
-       "Nombres":{},
-        "Precios":{},
-        "Plataforma":"Pc",
-        "Generos":{},
-        "Url":{},
-        "Imagenes":{},
-        "FechaLanzamiento":{},
-        "GenerosPagina":{}
-    }
-    
-    while i<numeroPaginas+1:
-
-        url="https://www.eneba.com/es/store?page="+str(i)+"&platforms[]=NINTENDO&types[]=game"
-        if i == 1:
-            diccionario=datosJuegosNintendoSwitch(url)
-        else:
-            diccionario["Nombres"].extend(datosJuegosNintendoSwitch(url)["Nombres"])
-            diccionario["Precios"].extend(datosJuegosNintendoSwitch(url)["Precios"])
-            diccionario["Generos"].extend(datosJuegosNintendoSwitch(url)["Generos"])
-            diccionario["Url"].extend(datosJuegosNintendoSwitch(url)["Url"])
-            diccionario["Imagenes"].extend(datosJuegosNintendoSwitch(url)["Imagenes"])
-            diccionario["FechaLanzamiento"].extend(datosJuegosNintendoSwitch(url)["FechaLanzamiento"])
-            lista=diccionario["GenerosPagina"]
-            for genero in datosJuegosNintendoSwitch(url)["GenerosPagina"]:
-                if genero not in lista:
-                    lista.append(genero)
-                    diccionario["GenerosPagina"] = lista
-        i=i+1
-
-    return diccionario
-
-def datosJuegosNintendoSwitch(urlJuegosNintendoSwitch):
+def datosJuegosNintendoSwitch():
 
     urlBasica="https://www.eneba.com"
+    urlJuegosNintendoSwitch= "https://www.eneba.com/es/store?page=1&platforms[]=NINTENDO&types[]=game"
 
     month = {	'January':'01',
 		'February':'02',
@@ -326,6 +216,7 @@ def datosJuegosNintendoSwitch(urlJuegosNintendoSwitch):
     listadoUrlJuegosSwitch=[]
     listadoPreciosJuegosSwitchActual=[]
     listadoGenerosJuegoSwitchTotal=[]
+    listadoGenerosJuegoSwitchTotalParseado=[]
     listadoGenerosPagina=[]
     listadoFechaLanzamientoJuegoSwitch=[]
 
@@ -364,10 +255,14 @@ def datosJuegosNintendoSwitch(urlJuegosNintendoSwitch):
                 generoSerializado=eliminadorDiacriticos(genero)
                 if "A³" in generoSerializado:
                     generoSerializado="Accion"
-                listadoGenerosJuegoSwitch.append(generoSerializado)
-                if not(generoSerializado in listadoGenerosPagina):
+                if "Windows" in generoSerializado:
+                    pass
+                else:
+                    listadoGenerosJuegoSwitch.append(generoSerializado)
+                if not(generoSerializado in listadoGenerosPagina) and ("Windows" not in generoSerializado):
                     listadoGenerosPagina.append(generoSerializado)
             listadoGenerosJuegoSwitchTotal.append(listadoGenerosJuegoSwitch)
+            listadoGenerosJuegoSwitchTotalParseado = [x for x in listadoGenerosJuegoSwitchTotal if x != []]
         
         fechaLanzamiento = soupJuegoSwitch.find("p", attrs={"class":"FpVQmt"})
         fechaLanzamientoJuegoSwitch=(fechaLanzamiento.get_text().split(" ")[1].strip(",")+"-"
@@ -378,7 +273,7 @@ def datosJuegosNintendoSwitch(urlJuegosNintendoSwitch):
         "Nombres":listadoNombresJuegosSwitch,
         "Precios":listadoPreciosJuegosSwitchActual,
         "Plataforma":"Nintendo Switch",
-        "Generos":listadoGenerosJuegoSwitchTotal,
+        "Generos":listadoGenerosJuegoSwitchTotalParseado,
         "Url":listadoUrlJuegosSwitch,
         "Imagenes":listadoImagenesJuegosSwitch,
         "FechaLanzamiento":listadoFechaLanzamientoJuegoSwitch,
@@ -414,6 +309,7 @@ def datosJuegosPs4():
     listadoUrlJuegosPs4=[]
     listadoPreciosJuegosPs4=[]
     listadoGenerosJuegoPs4Total=[]
+    listadoGenerosJuegoPs4TotalParseado=[]
     listadoGenerosPagina=[]
     listadoFechaLanzamientoJuegoPs4=[]
 
@@ -452,10 +348,14 @@ def datosJuegosPs4():
                 generoSerializado=eliminadorDiacriticos(genero)
                 if "A³" in generoSerializado:
                     generoSerializado="Accion"
-                listadoGenerosJuegoPs4.append(generoSerializado)
-                if not(generoSerializado in listadoGenerosPagina):
+                if "Windows" in generoSerializado:
+                    pass
+                else:
+                    listadoGenerosJuegoPs4.append(generoSerializado)
+                if not(generoSerializado in listadoGenerosPagina) and ("Windows" not in generoSerializado):
                     listadoGenerosPagina.append(generoSerializado)
             listadoGenerosJuegoPs4Total.append(listadoGenerosJuegoPs4)
+            listadoGenerosJuegoPs4TotalParseado = [x for x in listadoGenerosJuegoPs4Total if x != []]
 
         fechaLanzamiento = soupJuegoPs4.find("p", attrs={"class":"FpVQmt"})
         fechaLanzamientoJuegoPs4=(fechaLanzamiento.get_text().split(" ")[1].strip(",")+"-"
@@ -466,36 +366,116 @@ def datosJuegosPs4():
         "Nombres":listadoNombresJuegosPs4,
         "Precios":listadoPreciosJuegosPs4,
         "Plataforma":"PS4",
-        "Generos":listadoGenerosJuegoPs4Total,
+        "Generos":listadoGenerosJuegoPs4TotalParseado,
         "Url":listadoUrlJuegosPs4,
         "Imagenes":listadoImagenesJuegosPs4,
         "FechaLanzamiento":listadoFechaLanzamientoJuegoPs4,
         "GenerosPagina":listadoGenerosPagina
-    }        
+    }
 
     return contenidoJuegosPs4
 
 def crearTxtJuegosPs4():
 
     diccionario = datosJuegosPs4()
-
     try:
-        os.mkdir('template')
+        os.mkdir('data')
     except OSError as e:
         if e.errno != errno.EEXIST:
             raise
-
-    file_object = open("template\\datosPs4.txt","w",encoding="utf-8")
-    for i in range(0,len(diccionario["Nombres"])):
-
-        if (i+1)%7 ==0:
+    i=0
+    file_object = open("data\\datosPs4.txt","w",encoding="utf-8")
+    while (i< len(diccionario["Nombres"])):
+        if(i==0):
+            file_object.write("NOMBRE | PRECIO | PLATAFORMA | GENEROS | ENLACE | IMAGEN | FECHA DE LANZAMIENTO")
             file_object.write("\n")
-            file_object.write(str(diccionario["Nombres"][i])+"|"+str(diccionario["Precios"][i])+"|"+str(diccionario["Plataforma"][i])+"|"+
+            file_object.write(str(diccionario["Nombres"][i])+"|"+str(diccionario["Precios"][i])+"|"+str(diccionario["Plataforma"])+"|"+
                 str(diccionario["Generos"][i])+"|"+str(diccionario["Url"][i])+"|"+str(diccionario["Imagenes"][i])+"|"+
                 str(diccionario["FechaLanzamiento"][i]))
         else:
-            file_object.write(str(diccionario["Nombres"][i])+"|"+str(diccionario["Precios"][i])+"|"+str(diccionario["Plataforma"][i])+"|"+
+            file_object.write(str(diccionario["Nombres"][i])+"|"+str(diccionario["Precios"][i])+"|"+str(diccionario["Plataforma"]   )+"|"+
                 str(diccionario["Generos"][i])+"|"+str(diccionario["Url"][i])+"|"+str(diccionario["Imagenes"][i])+"|"+
                 str(diccionario["FechaLanzamiento"][i]))
+        file_object.write("\n")
+        i=i+1
 
+
+def crearTxtJuegosNintendoSwitch():
+
+
+    diccionario = datosJuegosNintendoSwitch()
+    try:
+        os.mkdir('data')
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise
+    i=0
+    file_object = open("data\\datosNintendoSwitch.txt","w",encoding="utf-8")
+    while (i< len(diccionario["Nombres"])):
+        if(i==0):
+            file_object.write("NOMBRE | PRECIO | PLATAFORMA | GENEROS | ENLACE | IMAGEN | FECHA DE LANZAMIENTO")
+            file_object.write("\n")
+            file_object.write(str(diccionario["Nombres"][i])+"|"+str(diccionario["Precios"][i])+"|"+str(diccionario["Plataforma"])+"|"+
+                str(diccionario["Generos"][i])+"|"+str(diccionario["Url"][i])+"|"+str(diccionario["Imagenes"][i])+"|"+
+                str(diccionario["FechaLanzamiento"][i]))
+        else:
+            file_object.write(str(diccionario["Nombres"][i])+"|"+str(diccionario["Precios"][i])+"|"+str(diccionario["Plataforma"]   )+"|"+
+                str(diccionario["Generos"][i])+"|"+str(diccionario["Url"][i])+"|"+str(diccionario["Imagenes"][i])+"|"+
+                str(diccionario["FechaLanzamiento"][i]))
+        file_object.write("\n")
+        i=i+1
+
+def crearTxtJuegosXboxOne():
+
+
+    diccionario = datosJuegosXboxOne()
+    try:
+        os.mkdir('data')
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise
+    i=0
+    file_object = open("data\\datosXboxOne.txt","w",encoding="utf-8")
+    while (i< len(diccionario["Nombres"])):
+        if(i==0):
+            file_object.write("NOMBRE | PRECIO | PLATAFORMA | GENEROS | ENLACE | IMAGEN | FECHA DE LANZAMIENTO")
+            file_object.write("\n")
+            file_object.write(str(diccionario["Nombres"][i])+"|"+str(diccionario["Precios"][i])+"|"+str(diccionario["Plataforma"])+"|"+
+                str(diccionario["Generos"][i])+"|"+str(diccionario["Url"][i])+"|"+str(diccionario["Imagenes"][i])+"|"+
+                str(diccionario["FechaLanzamiento"][i]))
+        else:
+            file_object.write(str(diccionario["Nombres"][i])+"|"+str(diccionario["Precios"][i])+"|"+str(diccionario["Plataforma"]   )+"|"+
+                str(diccionario["Generos"][i])+"|"+str(diccionario["Url"][i])+"|"+str(diccionario["Imagenes"][i])+"|"+
+                str(diccionario["FechaLanzamiento"][i]))
+        file_object.write("\n")
+        i=i+1
+
+def crearTxtJuegosPc():
+
+
+    diccionario = datosJuegosPc()
+    try:
+        os.mkdir('data')
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise
+    i=0
+    file_object = open("data\\datosPc.txt","w",encoding="utf-8")
+    while (i< len(diccionario["Nombres"])):
+        if(i==0):
+            file_object.write("NOMBRE | PRECIO | PLATAFORMA | GENEROS | ENLACE | IMAGEN | FECHA DE LANZAMIENTO")
+            file_object.write("\n")
+            file_object.write(str(diccionario["Nombres"][i])+"|"+str(diccionario["Precios"][i])+"|"+str(diccionario["Plataforma"])+"|"+
+                str(diccionario["Generos"][i])+"|"+str(diccionario["Url"][i])+"|"+str(diccionario["Imagenes"][i])+"|"+
+                str(diccionario["FechaLanzamiento"][i]))
+        else:
+            file_object.write(str(diccionario["Nombres"][i])+"|"+str(diccionario["Precios"][i])+"|"+str(diccionario["Plataforma"]   )+"|"+
+                str(diccionario["Generos"][i])+"|"+str(diccionario["Url"][i])+"|"+str(diccionario["Imagenes"][i])+"|"+
+                str(diccionario["FechaLanzamiento"][i]))
+        file_object.write("\n")
+        i=i+1
+
+crearTxtJuegosPc()
+crearTxtJuegosXboxOne()
+crearTxtJuegosNintendoSwitch()
 crearTxtJuegosPs4()
