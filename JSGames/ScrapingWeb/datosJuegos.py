@@ -42,6 +42,7 @@ def datosJuegosPc():
     listadoUrlJuegosPc=[]
     listadoPreciosJuegosPcActual=[]
     listadoGenerosJuegoPcTotal=[]
+    listadoGenerosJuegoPcTotalParseado=[]
     listadoGenerosPagina=[]
     listadoFechaLanzamientoJuegoPc=[]
 
@@ -80,7 +81,14 @@ def datosJuegosPc():
                 generoSerializado=eliminadorDiacriticos(genero)
                 if "A³" in generoSerializado:
                     generoSerializado="Accion"
-                listadoGenerosJuegoPc.append(generoSerializado)
+                if "Aº" in generoSerializado:
+                    generoSerializado="Musica"
+                if "NoneType" in type(generoSerializado).__name__:
+                    generoSerializado = "Otro"
+                if "Windows" in generoSerializado:
+                    pass
+                else:
+                    listadoGenerosJuegoPc.append(generoSerializado)
                 if not(generoSerializado in listadoGenerosPagina):
                     listadoGenerosPagina.append(generoSerializado)
             listadoGenerosJuegoPcTotal.append(listadoGenerosJuegoPc)
@@ -89,12 +97,13 @@ def datosJuegosPc():
         fechaLanzamientoJuegoPc=(fechaLanzamiento.get_text().split(" ")[1].strip(",")+"-"
             +month[fechaLanzamiento.get_text().split(" ")[0]]+"-"+fechaLanzamiento.get_text().split(" ")[2])
         listadoFechaLanzamientoJuegoPc.append(fechaLanzamientoJuegoPc)
+        listadoGenerosJuegoPcTotalParseado = [x for x in listadoGenerosJuegoPcTotal if x != []]
 
     contenidoJuegosPc = {
         "Nombres":listadoNombresJuegosPc,
         "Precios":listadoPreciosJuegosPcActual,
         "Plataforma":"Pc",
-        "Generos":listadoGenerosJuegoPcTotal,
+        "Generos":listadoGenerosJuegoPcTotalParseado,
         "Url":listadoUrlJuegosPc,
         "Imagenes":listadoImagenesJuegosPc,
         "FechaLanzamiento":listadoFechaLanzamientoJuegoPc,
@@ -106,7 +115,7 @@ def datosJuegosPc():
 def datosJuegosXboxOne():
 
     urlBasica="https://www.eneba.com"
-    urlJuegosXboxOne="https://www.eneba.com/es/store?page=1&platforms[]=XBOX&types[]=game"
+    urlJuegosXboxOne="https://www.eneba.com/es/store?page=2&platforms[]=XBOX&types[]=game"
 
     month = {	'January':'01',
 		'February':'02',
@@ -129,6 +138,7 @@ def datosJuegosXboxOne():
     listadoUrlJuegosXboxOne=[]
     listadoPreciosJuegosXboxOneActual=[]
     listadoGenerosJuegoXboxTotal=[]
+    listadoGenerosJuegoXboxTotalParseado=[]
     listadoGenerosPagina=[]
     listadoFechaLanzamientoJuegoXboxOne=[]
 
@@ -167,10 +177,18 @@ def datosJuegosXboxOne():
                 generoSerializado=eliminadorDiacriticos(genero)
                 if "A³" in generoSerializado:
                     generoSerializado="Accion"
-                listadoGenerosJuegoXboxOne.append(generoSerializado)
+                if "Aº" in generoSerializado:
+                    generoSerializado="Musica"
+                if "NoneType" in type(generoSerializado).__name__:
+                    generoSerializado = "Otro"
+                if "Windows" in generoSerializado:
+                    pass
+                else:
+                    listadoGenerosJuegoXboxOne.append(generoSerializado)
                 if not(generoSerializado in listadoGenerosPagina):
                     listadoGenerosPagina.append(generoSerializado)
             listadoGenerosJuegoXboxTotal.append(listadoGenerosJuegoXboxOne)
+            listadoGenerosJuegoXboxTotalParseado = [x for x in listadoGenerosJuegoXboxTotal if x != []]
         
         fechaLanzamiento = soupJuegoXboxOne.find("p", attrs={"class":"FpVQmt"})
         fechaLanzamientoJuegoXboxOne=(fechaLanzamiento.get_text().split(" ")[1].strip(",")+"-"
@@ -181,7 +199,7 @@ def datosJuegosXboxOne():
         "Nombres":listadoNombresJuegosXboxOne,
         "Precios":listadoPreciosJuegosXboxOneActual,
         "Plataforma":"Xbox One",
-        "Generos":listadoGenerosJuegoXboxTotal,
+        "Generos":listadoGenerosJuegoXboxTotalParseado,
         "Url":listadoUrlJuegosXboxOne,
         "Imagenes":listadoImagenesJuegosXboxOne,
         "FechaLanzamiento":listadoFechaLanzamientoJuegoXboxOne,
@@ -255,6 +273,10 @@ def datosJuegosNintendoSwitch():
                 generoSerializado=eliminadorDiacriticos(genero)
                 if "A³" in generoSerializado:
                     generoSerializado="Accion"
+                if "Aº" in generoSerializado:
+                    generoSerializado="Musica"
+                if "NoneType" in type(generoSerializado).__name__:
+                    generoSerializado = "Otro"
                 if "Windows" in generoSerializado:
                     pass
                 else:
@@ -348,6 +370,10 @@ def datosJuegosPs4():
                 generoSerializado=eliminadorDiacriticos(genero)
                 if "A³" in generoSerializado:
                     generoSerializado="Accion"
+                if "Aº" in generoSerializado:
+                    generoSerializado="Musica"
+                if "NoneType" in type(generoSerializado).__name__:
+                    generoSerializado = "Otro"
                 if "Windows" in generoSerializado:
                     pass
                 else:
@@ -399,7 +425,6 @@ def crearTxtJuegosPs4():
         file_object.write("\n")
         i=i+1
 
-
 def crearTxtJuegosNintendoSwitch():
 
 
@@ -419,7 +444,7 @@ def crearTxtJuegosNintendoSwitch():
                 str(diccionario["Generos"][i])+"|"+str(diccionario["Url"][i])+"|"+str(diccionario["Imagenes"][i])+"|"+
                 str(diccionario["FechaLanzamiento"][i]))
         else:
-            file_object.write(str(diccionario["Nombres"][i])+"|"+str(diccionario["Precios"][i])+"|"+str(diccionario["Plataforma"]   )+"|"+
+            file_object.write(str(diccionario["Nombres"][i])+"|"+str(diccionario["Precios"][i])+"|"+str(diccionario["Plataforma"])+"|"+
                 str(diccionario["Generos"][i])+"|"+str(diccionario["Url"][i])+"|"+str(diccionario["Imagenes"][i])+"|"+
                 str(diccionario["FechaLanzamiento"][i]))
         file_object.write("\n")
@@ -475,7 +500,56 @@ def crearTxtJuegosPc():
         file_object.write("\n")
         i=i+1
 
-crearTxtJuegosPc()
-crearTxtJuegosXboxOne()
-crearTxtJuegosNintendoSwitch()
-crearTxtJuegosPs4()
+
+#crearTxtJuegosXboxOne()
+#crearTxtJuegosNintendoSwitch()
+#crearTxtJuegosPs4()
+#crearTxtJuegosPc()
+
+def generosTotales():
+
+    res=[]
+    GenerosPc=datosJuegosPc()["GenerosPagina"]
+    GenerosXbox=datosJuegosXboxOne()["GenerosPagina"]
+    GenerosSwitch=datosJuegosNintendoSwitch()["GenerosPagina"]
+    GenerosPs4=datosJuegosPs4()["GenerosPagina"]
+
+    for generoPc in GenerosPc:
+        if not(generoPc in res):
+            res.append(generoPc)
+    for generoXbox in GenerosXbox:
+        if not(generoXbox in res):
+            res.append(generoXbox)
+    for generoSwitch in GenerosSwitch:
+        if not(generoSwitch in res):
+            res.append(generoSwitch)
+    for generoPs4 in GenerosPs4:
+        if not(generoPs4 in res):
+            res.append(generoPs4)
+
+    return res
+
+def crearTxtGeneros():
+
+
+    lista = generosTotales()
+    try:
+        os.mkdir('data')
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise
+    i=0
+    file_object = open("data\\datosGeneros.txt","w",encoding="utf-8")
+    while (i< len(lista)):
+        if(i==0):
+            file_object.write("NOMBRE")
+            file_object.write("\n")
+            file_object.write(str(lista[i]))
+        if(i == (len(lista)-1)):
+            file_object.write("Otro")
+        else:
+            file_object.write(str(lista[i]))
+        file_object.write("\n")
+        i=i+1
+
+crearTxtGeneros()

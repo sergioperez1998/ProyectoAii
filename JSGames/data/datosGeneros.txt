@@ -1,0 +1,20 @@
+NOMBRE
+AccionAccion
+Indie
+MMO
+FPS / TPS
+Aventuras
+RPG
+Windows
+Mac
+Linux
+Carreras
+Deporte
+Rompecabezas
+Plataforma
+Lucha
+Estrategia
+Musica
+Educativo
+Arcade
+Otro
