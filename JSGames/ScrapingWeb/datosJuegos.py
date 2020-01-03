@@ -117,7 +117,7 @@ def datosJuegosPc():
 def datosJuegosXboxOne():
 
     urlBasica="https://www.eneba.com"
-    urlJuegosXboxOne="https://www.eneba.com/es/store?page=3&platforms[]=XBOX&types[]=game"
+    urlJuegosXboxOne="https://www.eneba.com/es/store?page=5&platforms[]=XBOX&types[]=game"
 
     month = {	'January':'01',
 		'February':'02',
@@ -545,10 +545,12 @@ def crearTxtGeneros():
     for genero in lista:
         file_object.write(genero)
         file_object.write("\n")
+    file_object.write("Simulacion")
+    file_object.write("\n")
     file_object.write("Otro")
     file_object.close()
 
-#crearTxtJuegosXboxOne()
+crearTxtJuegosXboxOne()
 #crearTxtJuegosNintendoSwitch()
 #crearTxtJuegosPs4()
 #crearTxtJuegosPc()
