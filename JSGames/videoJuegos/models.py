@@ -55,7 +55,7 @@ class Cliente(models.Model):
     codigoPostal = models.TextField(verbose_name='Código Postal')
     consolas = models.ManyToManyField(Consola)
     videoJuegos = models.ManyToManyField(VideoJuego)
-    
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     
     def __str__(self):
         return self.idUsuario
