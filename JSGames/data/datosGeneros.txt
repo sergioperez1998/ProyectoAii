@@ -1,5 +1,5 @@
 NOMBRE
-AccionAccion
+Accion
 Indie
 MMO
 FPS / TPS
@@ -17,4 +17,5 @@ Estrategia
 Musica
 Educativo
 Arcade
+Hack & Slash
 Otro
