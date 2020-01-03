@@ -79,9 +79,11 @@ def datosJuegosPc():
             for generosJuegos in generos.find_all("li"):
                 genero=generosJuegos.a.get_text()
                 generoSerializado=eliminadorDiacriticos(genero)
-                if "A³" in generoSerializado:
+                if "AcciA³n" in generoSerializado:
                     generoSerializado="Accion"
-                if "Aº" in generoSerializado:
+                if "SimulaciA³n" in generoSerializado:
+                    generoSerializado="Simulacion"
+                if "MAº" in generoSerializado:
                     generoSerializado="Musica"
                 if "NoneType" in type(generoSerializado).__name__:
                     generoSerializado = "Otro"
@@ -115,7 +117,7 @@ def datosJuegosPc():
 def datosJuegosXboxOne():
 
     urlBasica="https://www.eneba.com"
-    urlJuegosXboxOne="https://www.eneba.com/es/store?page=2&platforms[]=XBOX&types[]=game"
+    urlJuegosXboxOne="https://www.eneba.com/es/store?page=3&platforms[]=XBOX&types[]=game"
 
     month = {	'January':'01',
 		'February':'02',
@@ -175,9 +177,11 @@ def datosJuegosXboxOne():
             for generosJuegos in generos.find_all("li"):
                 genero=generosJuegos.a.get_text()
                 generoSerializado=eliminadorDiacriticos(genero)
-                if "A³" in generoSerializado:
+                if "AcciA³n" in generoSerializado:
                     generoSerializado="Accion"
-                if "Aº" in generoSerializado:
+                if "SimulaciA³n" in generoSerializado:
+                    generoSerializado="Simulacion"
+                if "MAº" in generoSerializado:
                     generoSerializado="Musica"
                 if "NoneType" in type(generoSerializado).__name__:
                     generoSerializado = "Otro"
@@ -271,9 +275,11 @@ def datosJuegosNintendoSwitch():
             for generosJuegos in generos.find_all("li"):
                 genero=generosJuegos.a.get_text()
                 generoSerializado=eliminadorDiacriticos(genero)
-                if "A³" in generoSerializado:
+                if "AcciA³n" in generoSerializado:
                     generoSerializado="Accion"
-                if "Aº" in generoSerializado:
+                if "SimulaciA³n" in generoSerializado:
+                    generoSerializado="Simulacion"
+                if "MAº" in generoSerializado:
                     generoSerializado="Musica"
                 if "NoneType" in type(generoSerializado).__name__:
                     generoSerializado = "Otro"
@@ -368,9 +374,11 @@ def datosJuegosPs4():
             for generosJuegos in generos.find_all("li"):
                 genero=generosJuegos.a.get_text()
                 generoSerializado=eliminadorDiacriticos(genero)
-                if "A³" in generoSerializado:
+                if "AcciA³n" in generoSerializado:
                     generoSerializado="Accion"
-                if "Aº" in generoSerializado:
+                if "SimulaciA³n" in generoSerializado:
+                    generoSerializado="Simulacion"
+                if "MAº" in generoSerializado:
                     generoSerializado="Musica"
                 if "NoneType" in type(generoSerializado).__name__:
                     generoSerializado = "Otro"
@@ -500,12 +508,6 @@ def crearTxtJuegosPc():
         file_object.write("\n")
         i=i+1
 
-
-#crearTxtJuegosXboxOne()
-#crearTxtJuegosNintendoSwitch()
-#crearTxtJuegosPs4()
-#crearTxtJuegosPc()
-
 def generosTotales():
 
     res=[]
@@ -514,9 +516,8 @@ def generosTotales():
     GenerosSwitch=datosJuegosNintendoSwitch()["GenerosPagina"]
     GenerosPs4=datosJuegosPs4()["GenerosPagina"]
 
-    for generoPc in GenerosPc:
-        if not(generoPc in res):
-            res.append(generoPc)
+    res = GenerosPc
+
     for generoXbox in GenerosXbox:
         if not(generoXbox in res):
             res.append(generoXbox)
@@ -531,7 +532,6 @@ def generosTotales():
 
 def crearTxtGeneros():
 
-
     lista = generosTotales()
     try:
         os.mkdir('data')
@@ -540,16 +540,16 @@ def crearTxtGeneros():
             raise
     i=0
     file_object = open("data\\datosGeneros.txt","w",encoding="utf-8")
-    while (i< len(lista)):
-        if(i==0):
-            file_object.write("NOMBRE")
-            file_object.write("\n")
-            file_object.write(str(lista[i]))
-        if(i == (len(lista)-1)):
-            file_object.write("Otro")
-        else:
-            file_object.write(str(lista[i]))
+    file_object.write("NOMBRE")
+    file_object.write("\n")
+    for genero in lista:
+        file_object.write(genero)
         file_object.write("\n")
-        i=i+1
+    file_object.write("Otro")
+    file_object.close()
 
-crearTxtGeneros()
+#crearTxtJuegosXboxOne()
+#crearTxtJuegosNintendoSwitch()
+#crearTxtJuegosPs4()
+#crearTxtJuegosPc()
+#crearTxtGeneros()

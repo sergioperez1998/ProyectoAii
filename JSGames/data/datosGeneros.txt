@@ -1,5 +1,5 @@
 NOMBRE
-AccionAccion
+Accion
 Indie
 MMO
 FPS / TPS
@@ -12,9 +12,10 @@ Carreras
 Deporte
 Rompecabezas
 Plataforma
-Lucha
 Estrategia
 Musica
-Educativo
 Arcade
+Educativo
+Lucha
+Hack & Slash
 Otro
