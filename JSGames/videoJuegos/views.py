@@ -8,17 +8,19 @@ from videoJuegos.models import Genero, VideoJuego, Consola
 from datetime import datetime
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from django.db.models.query import QuerySet
 
 
 
 path = "C:\\Users\\Usuario\\Desktop\\Universidad\\cuarto año\\AII\\Proyecto git\\ProyectoAii\\JSGames\\data"
 @login_required(login_url='/ingresar')
 def populateDatabase(request):
+    populateConsola()
     populateGeneros()
     populateVideoJuegosNintendoSwitch()
     populateVideoJuegosPc()
     populateVideoJuegosPS4()
-  #  populateVideoJuegosXboxOne()
+    populateVideoJuegosXboxOne()
     logout(request)  
     return HttpResponseRedirect('/index.html')
 
@@ -116,8 +118,6 @@ def populateVideoJuegosNintendoSwitch():
     
     print("Videojuego insertados: " + str(VideoJuego.objects.filter(consola__nombre="Nintendo Switch").count()))
     print("---------------------------------------------------------")
-
-
 
 
 
@@ -261,6 +261,7 @@ def populateVideoJuegosXboxOne():
             
             listaAux=[]
             for genero in generos:
+                
                 listaAux.append(Genero.objects.get(nombre=genero.strip("[ ' ]")))
             listaGeneros.append(listaAux)
            
@@ -270,7 +271,7 @@ def populateVideoJuegosXboxOne():
     fileobj.close()
     VideoJuego.objects.bulk_create(lista)
     
-    for juegosXboxOne in VideoJuego.objects.filter(consola__nombre="PS4"):
+    for juegosXboxOne in VideoJuego.objects.filter(consola__nombre="Xbox One"):
                 listaIdJuegos.append(juegosXboxOne.idVideoJuegos)
     
     listaIdJuegos.sort(key=None, reverse=False)
@@ -284,12 +285,44 @@ def populateVideoJuegosXboxOne():
     
     dict2={}
    
-    for juegosXboxOne in VideoJuego.objects.filter(consola__nombre="XboxOne"):
+    for juegosXboxOne in VideoJuego.objects.filter(consola__nombre="Xbox One"):
         juegosXboxOne.generos.set(dict_generos[juegosXboxOne.idVideoJuegos])
         dict2[juegosXboxOne.idVideoJuegos]=juegosXboxOne 
     
-    print("Videojuego insertados: " + str(VideoJuego.objects.filter(consola__nombre="XboxOne").count()))
+    print("Videojuego insertados: " + str(VideoJuego.objects.filter(consola__nombre="Xbox One").count()))
     print("---------------------------------------------------------")
-
-
+def populateConsola():
+    print("----------------------------------------------")
+    
+    if Consola.objects.all().exists():
+        print("Las consolas ya estaban cargadas")
+        print("----------------------------------------------")
+       
+        
+    else:
+        print("Cargando las consolas predeterminadas")
+        listaConsolas=[]
+        nintendoSwitch=Consola(nombre="Nintendo Switch", urlImg="https://images-na.ssl-images-amazon.com/images/I/71ivrWiYkLL._SX466_.jpg", 
+                descripcion="Es un híbrido entre portátil y sobremesa con mandos separables."
+                " Nintendo acaba de presentar Switch, su nueva consola que mezcla en un "
+                "mismo aparato las características de una sobremesa con una portátil. La compañía japonesa ha presentada" 
+                "esta nueva máquina a través de un vídeo que muestra su peculiar funcionamiento.")
+       
+        Pc=Consola(nombre="Pc", urlImg="https://images-na.ssl-images-amazon.com/images/I/51afVSRxJlL._SX466_.jpg", 
+                descripcion="Un juego de computadora es un programa que sirve de entretenimiento y que es jugado en una computadora -generalmente una PC- en lugar de consolas y similares")
+       
+        PS4=Consola(nombre="PS4", urlImg="https://media.playstation.com/is/image/SCEA/playstation-4-pro-vertical-product-shot-01-us-07sep16?$native_t$", 
+                descripcion="PS4 es un sistema de entretenimiento digital y la cuarta consola de sobremesa desarrollada por Sony Computer Entertainment.")
+        XboxOne=Consola(nombre="Xbox One", urlImg="https://compass-ssl.xbox.com/assets/05/b0/05b01a46-58eb-4927-ad21-3c43b545ebaf.jpg?n=X1S-2019_Panes-2-Up-1084_111_570x400.jpg", 
+                descripcion="La consola está formada por un procesador AMD de 8 núcleos Custom de 64 bits basado en microarquitectura Jaguar y una velocidad estimada en 1,75Ghz, 8 GB de memoria RAM DDR3 más 32MB de ESRAM, con una velocidad de hasta 204GB/s​ 500 GB de disco duro y un lector Blu-ray 6x.")
+        listaConsolas.append(nintendoSwitch)
+        listaConsolas.append(Pc)
+        listaConsolas.append(PS4)
+        listaConsolas.append(XboxOne)
+        
+        Consola.objects.bulk_create(listaConsolas)
+        print("Consolas cargadas")
+        print("----------------------------------------------")
+        
+        
 

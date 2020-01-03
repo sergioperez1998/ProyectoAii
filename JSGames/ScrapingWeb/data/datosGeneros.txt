@@ -8,16 +8,13 @@ RPG
 Windows
 Mac
 Linux
+Simulacion
 Carreras
 Deporte
 Rompecabezas
 Plataforma
 Estrategia
-Musica
-Arcade
-Educativo
 Lucha
+Arcade
 Hack & Slash
-Simulacion
 Otro
-

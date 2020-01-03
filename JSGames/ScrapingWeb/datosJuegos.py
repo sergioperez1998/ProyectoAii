@@ -552,4 +552,4 @@ def crearTxtGeneros():
 #crearTxtJuegosNintendoSwitch()
 #crearTxtJuegosPs4()
 #crearTxtJuegosPc()
-#crearTxtGeneros()
+crearTxtGeneros()

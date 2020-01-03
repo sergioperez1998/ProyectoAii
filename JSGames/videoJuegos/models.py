@@ -15,7 +15,7 @@ class Genero(models.Model):
         
 
 class Consola(models.Model):
-    idConsola = models.TextField(primary_key=True)
+    idConsola = models.AutoField(primary_key=True)
     nombre = models.TextField(verbose_name='Nombre',unique=True) 
     urlImg=models.URLField(verbose_name = 'Url de la imagen')
     descripcion=models.TextField(verbose_name='Descripción del producto') 
