@@ -21,5 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('index.html/', views.index),
     path('',views.index),
+    path('ingresar/', views.ingresar),
+    path('populate/', views.populateDatabase),
     
 ]

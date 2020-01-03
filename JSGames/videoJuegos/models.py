@@ -1,6 +1,7 @@
 #encoding:utf-8
 
 from django.db import models
+from django.contrib.auth.models import User
 
 class Genero(models.Model):
     generoId = models.AutoField(primary_key=True)
@@ -54,6 +55,7 @@ class Cliente(models.Model):
     codigoPostal = models.TextField(verbose_name='Código Postal')
     consolas = models.ManyToManyField(Consola)
     videoJuegos = models.ManyToManyField(VideoJuego)
+    
     
     def __str__(self):
         return self.idUsuario

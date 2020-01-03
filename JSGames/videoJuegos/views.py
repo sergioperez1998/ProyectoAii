@@ -6,13 +6,44 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from videoJuegos.models import Genero, VideoJuego, Consola
 from datetime import datetime
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 
 
-# Create your views here.
-path = "data"
+
+path = "C:\\Users\\Usuario\\Desktop\\Universidad\\cuarto año\\AII\\Proyecto git\\ProyectoAii\\JSGames\\data"
+@login_required(login_url='/ingresar')
+def populateDatabase(request):
+    populateGeneros()
+    populateVideoJuegosNintendoSwitch()
+    populateVideoJuegosPc()
+    populateVideoJuegosPS4()
+  #  populateVideoJuegosXboxOne()
+    logout(request)  
+    return HttpResponseRedirect('/index.html')
 
 def index(request):
     return render(request, 'index.html',{'STATIC_URL':settings.STATIC_URL})
+
+def ingresar(request):
+    if request.user.is_authenticated:
+        return(HttpResponseRedirect('/populate'))
+    formulario = AuthenticationForm()
+    if request.method=='POST':
+        formulario = AuthenticationForm(request.POST)
+        usuario=request.POST['username']
+        clave=request.POST['password']
+        acceso=authenticate(username=usuario,password=clave)
+        if acceso is not None:
+            if acceso.is_active:
+                login(request, acceso)
+                return (HttpResponseRedirect('/populate'))
+            else:
+                return (HttpResponse('<html><body>ERROR: USUARIO NO ACTIVO </body></html>'))
+        else:
+            return (HttpResponse('<html><body>ERROR: USUARIO O CONTARSE&Ntilde;A INCORRECTOS </body></html>'))
+                     
+    return render(request, 'ingresar.html', {'formulario':formulario})
 
 
 
@@ -87,7 +118,7 @@ def populateVideoJuegosNintendoSwitch():
     print("---------------------------------------------------------")
 
 
-populateVideoJuegosNintendoSwitch()
+
 
 
 def populateVideoJuegosPc():
@@ -144,7 +175,7 @@ def populateVideoJuegosPc():
     
     print("Videojuego insertados: " + str(VideoJuego.objects.filter(consola__nombre="Pc").count()))
     print("---------------------------------------------------------")
-populateVideoJuegosPc()
+
 
 def populateVideoJuegosPS4():
     print("Cargando videoJuegos de PS4...")
@@ -202,7 +233,7 @@ def populateVideoJuegosPS4():
     print("Videojuego insertados: " + str(VideoJuego.objects.filter(consola__nombre="PS4").count()))
     print("---------------------------------------------------------")
 
-populateVideoJuegosPS4()
+
 
 def populateVideoJuegosXboxOne():
     print("Cargando videoJuegos de Xbox One...")
