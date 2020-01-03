@@ -1,6 +1,7 @@
 #encoding:utf-8
 
 from django.db import models
+from django.contrib.auth.models import User
 
 class Genero(models.Model):
     generoId = models.AutoField(primary_key=True)
@@ -12,35 +13,38 @@ class Genero(models.Model):
     class Meta:
         ordering = ('nombre', )
         
-class VideoJuego(models.Model):
-    idVideoJuegos = models.TextField(primary_key=True)
-    nombre = models.TextField(verbose_name='Nombre') 
-    precio = models.TextField(verbose_name='Precio')
-    fechaLanzamiento = models.DateField(verbose_name='Fecha de Lanzamiento', null=True)
-    desarrollador=models.TextField(verbose_name = 'Desarrollador')
-    urlImg=models.URLField(verbose_name = 'Url de la imagen del producto')
-    urlProducto=models.URLField(verbose_name = 'Url producto')
-    generos = models.ManyToManyField(Genero)
-    
-    def __str__(self):
-        return self.nombre
-    
-    class Meta:
-        ordering = ('nombre','fechaLanzamiento','desarrollador' )
-
-
 
 class Consola(models.Model):
     idConsola = models.TextField(primary_key=True)
     nombre = models.TextField(verbose_name='Nombre',unique=True) 
     urlImg=models.URLField(verbose_name = 'Url de la imagen')
     descripcion=models.TextField(verbose_name='Descripción del producto') 
-    videoJuegos = models.ManyToManyField(VideoJuego)
+    
     def __str__(self):
         return self.nombre
     
     class Meta:
         ordering = ('nombre', )
+
+
+
+        
+class VideoJuego(models.Model):
+    idVideoJuegos = models.AutoField(primary_key=True)
+    nombre = models.TextField(verbose_name='Nombre') 
+    precio = models.TextField(verbose_name='Precio')
+    fechaLanzamiento = models.DateField(verbose_name='Fecha de Lanzamiento', null=True)
+    urlImg=models.URLField(verbose_name = 'Url de la imagen del producto')
+    urlProducto=models.URLField(verbose_name = 'Url producto')
+    generos = models.ManyToManyField(Genero)
+    consola=models.ForeignKey(Consola, on_delete=models.SET_NULL, null=True)
+    
+    def __str__(self):
+        return self.nombre
+    
+    class Meta:
+        ordering = ('nombre','fechaLanzamiento', )
+
 
 
 
@@ -51,6 +55,7 @@ class Cliente(models.Model):
     codigoPostal = models.TextField(verbose_name='Código Postal')
     consolas = models.ManyToManyField(Consola)
     videoJuegos = models.ManyToManyField(VideoJuego)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     
     def __str__(self):
         return self.idUsuario

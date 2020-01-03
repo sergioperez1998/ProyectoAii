@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from videoJuegos import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('index.html/', views.index),
+    path('',views.index),
+    path('ingresar/', views.ingresar),
+    path('populate/', views.populateDatabase),
+    
 ]
