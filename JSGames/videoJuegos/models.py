@@ -50,12 +50,15 @@ class VideoJuego(models.Model):
 
 class Cliente(models.Model):
     idUsuario = models.TextField(primary_key=True)
+    nombre = models.TextField(verbose_name='Nombre')
+    apellidos = models.TextField(verbose_name='Apellidos')
+    password = models.TextField(verbose_name='Contraseña')
     edad = models.IntegerField(verbose_name='Edad', help_text='Debe introducir una edad')
     sexo = models.CharField(max_length=1, verbose_name='Sexo', help_text='Debe elegir entre M o F')
-    codigoPostal = models.TextField(verbose_name='Código Postal')
+    codigoPostal = models.CharField(max_length=5,verbose_name='Código Postal')
     consolas = models.ManyToManyField(Consola)
     videoJuegos = models.ManyToManyField(VideoJuego)
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    #user = models.OneToOneField(User,on_delete=models.CASCADE)
     
     def __str__(self):
         return self.idUsuario

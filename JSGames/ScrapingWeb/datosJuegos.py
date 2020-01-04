@@ -545,13 +545,11 @@ def crearTxtGeneros():
     for genero in lista:
         file_object.write(genero)
         file_object.write("\n")
-    file_object.write("Simulacion")
-    file_object.write("\n")
     file_object.write("Otro")
     file_object.close()
 
-crearTxtJuegosXboxOne()
+#crearTxtJuegosXboxOne()
 #crearTxtJuegosNintendoSwitch()
 #crearTxtJuegosPs4()
 #crearTxtJuegosPc()
-crearTxtGeneros()
+#crearTxtGeneros()

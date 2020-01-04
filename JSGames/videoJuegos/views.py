@@ -1,18 +1,18 @@
 #encoding:utf-8
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf import settings
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
-from videoJuegos.models import Genero, VideoJuego, Consola
 from datetime import datetime
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from django.db.models.query import QuerySet
+from videoJuegos.models import Genero, VideoJuego, Consola, Cliente
+from videoJuegos.forms import ClienteForm
 
 
-
-path = "C:\\Users\\Usuario\\Desktop\\Universidad\\cuarto año\\AII\\Proyecto git\\ProyectoAii\\JSGames\\data"
+path="C:\\Users\\sergi\\Desktop\\Mi Equipo\\Facultad\\CUARTO CURSO\\ACCESO INTELIGENTE A LA INFORMACION\\PROYECTO AII\\ProyectoAii\\JSGames\\data"
+#path = "C:\\Users\\sergi\\Desktop\\Datos"
 @login_required(login_url='/ingresar')
 def populateDatabase(request):
     populateConsola()
@@ -324,5 +324,32 @@ def populateConsola():
         print("Consolas cargadas")
         print("----------------------------------------------")
         
+'''  
+def crearCliente(request):
+    if request.method == "POST":
+        form = ClienteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("index")
+    else:
+        form = ClienteForm()
+    return render(request, "crearCliente.html", {form:form})
+'''
         
+def client_show(request):
+    return render(request, "videoJuegos/cliente_show.html")
 
+def client_form(request):
+    if request.method == "GET":
+        form= ClienteForm()
+        return render(request, "videoJuegos/cliente_form.html", {"form":form})   
+    else:
+        form= ClienteForm(request.POST)
+        if form.is_valid():
+            form.save() 
+        return redirect("/videoJuegos/showClient")
+            
+            
+            
+            
+            
