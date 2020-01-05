@@ -202,7 +202,9 @@ def populateVideoJuegosPS4():
             
             
             listaAux=[]
+            
             for genero in generos:
+               
                 listaAux.append(Genero.objects.get(nombre=genero.strip("[ ' ]")))
             listaGeneros.append(listaAux)
            
@@ -261,7 +263,7 @@ def populateVideoJuegosXboxOne():
             
             listaAux=[]
             for genero in generos:
-                
+               
                 listaAux.append(Genero.objects.get(nombre=genero.strip("[ ' ]")))
             listaGeneros.append(listaAux)
            

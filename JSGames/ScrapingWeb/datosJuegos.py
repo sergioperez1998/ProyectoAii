@@ -548,8 +548,8 @@ def crearTxtGeneros():
     file_object.write("Otro")
     file_object.close()
 
-#crearTxtJuegosXboxOne()
+crearTxtJuegosXboxOne()
 #crearTxtJuegosNintendoSwitch()
 #crearTxtJuegosPs4()
 #crearTxtJuegosPc()
-crearTxtGeneros()
+#crearTxtGeneros()
