@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from videoJuegos.models import Genero, VideoJuego, Consola, Cliente
 from videoJuegos.forms import ClienteForm
 
-path='C: \\ Usuarios \\ Usuario \\ Escritorio \\ Universidad \\ cuarto año \\ AII \\ Proyecto git \\ ProyectoAii \\ JSGames\\data'
+path="C:\\Users\\Usuario\\Desktop\\Universidad\\cuarto año\\AII\\Proyecto git\\ProyectoAii\\JSGames\\data"
 #path="C:\\Users\\sergi\\Desktop\\Mi Equipo\\Facultad\\CUARTO CURSO\\ACCESO INTELIGENTE A LA INFORMACION\\PROYECTO AII\\ProyectoAii\\JSGames\\data"
 #path = "C:\\Users\\sergi\\Desktop\\Datos"
 @login_required(login_url='/ingresar')
