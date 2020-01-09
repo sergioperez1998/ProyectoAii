@@ -28,7 +28,7 @@ urlpatterns = [
     path('videoJuegos/', include("videoJuegos.urls")),
     path('login/', LoginView.as_view(), name="login_url"),
     path('register/', views.registerView, name="register_url"),
-    path('showUserData/',views.showUser, name="show_data_url"),
+    path('showUser/',views.showUser, name="show_data_url"),
     path('logout/',LogoutView.as_view(), name="logout"),
     path('',views.startPage, name="startPage"),
     
