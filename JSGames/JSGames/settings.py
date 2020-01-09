@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from django.conf.global_settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -123,3 +124,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL ='/media/'
+LOGIN_REDIRECT_URL="/videoJuegos/"
+LOGOUT_REDIRECT_URL="/"

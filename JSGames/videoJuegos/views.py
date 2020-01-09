@@ -8,7 +8,8 @@ from datetime import datetime
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from videoJuegos.models import Genero, VideoJuego, Consola, Cliente
-from videoJuegos.forms import ClienteForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 path="C:\\Users\\Usuario\\Desktop\\Universidad\\cuarto año\\AII\\Proyecto git\\ProyectoAii\\JSGames\\data"
 #path="C:\\Users\\sergi\\Desktop\\Mi Equipo\\Facultad\\CUARTO CURSO\\ACCESO INTELIGENTE A LA INFORMACION\\PROYECTO AII\\ProyectoAii\\JSGames\\data"
@@ -24,6 +25,7 @@ def populateDatabase(request):
     logout(request)  
     return HttpResponseRedirect('/index.html')
 
+@login_required() 
 def index(request):
     return render(request, 'index.html',{'STATIC_URL':settings.STATIC_URL})
 
@@ -323,31 +325,29 @@ def populateConsola():
         Consola.objects.bulk_create(listaConsolas)
         print("Consolas cargadas")
         print("----------------------------------------------")
-        
-'''  
-def crearCliente(request):
-    if request.method == "POST":
-        form = ClienteForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("index")
-    else:
-        form = ClienteForm()
-    return render(request, "crearCliente.html", {form:form})
-'''
-        
+'''        
 def client_show(request):
     return render(request, "videoJuegos/cliente_show.html")
+'''
 
-def client_form(request):
-    if request.method == "GET":
-        form= ClienteForm()
-        return render(request, "videoJuegos/cliente_form.html", {"form":form})   
-    else:
-        form= ClienteForm(request.POST)
+   
+def dashboardView(request):
+    return render(request,'videoJuegos/dashboard.html')
+       
+def registerView(request):
+    if request.method == "POST":
+        form=UserCreationForm(request.POST)
         if form.is_valid():
-            form.save() 
-        return redirect("/videoJuegos/showClient")
+            form.save()
+            return redirect("login_url")
+    else:
+        form=UserCreationForm()
+        
+    return render(request,'videoJuegos/cliente_form.html', {"form":form})
+
+def startPage(request):
+    return render(request, 'videoJuegos/startPage.html',{'STATIC_URL':settings.STATIC_URL})
+
             
             
             
