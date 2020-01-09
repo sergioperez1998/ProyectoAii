@@ -12,4 +12,6 @@ class ClienteForm(forms.ModelForm):
             "edad",
             "sexo",
             "codigoPostal",
+            "consolas",
+            "videoJuegos",
             ]
