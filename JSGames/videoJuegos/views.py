@@ -337,7 +337,7 @@ def registerView(request):
             password = form.cleaned_data['password1']
             user= authenticate(username=username, password= password)
             login(request, user)
-            return redirect("startPage")
+            return redirect("inicio")
     else:
         form=CustomUserForm()
         

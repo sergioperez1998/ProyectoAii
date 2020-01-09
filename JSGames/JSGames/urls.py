@@ -22,7 +22,7 @@ urlpatterns = [
     
     path('admin/', admin.site.urls),
     path('index.html/', views.index,name="index"),
-    path('videoJuegos/',views.index),
+    path('videoJuegos/',views.index, name="inicio"),
     path('ingresar/', views.ingresar),
     path('populate/', views.populateDatabase),
     path('videoJuegos/', include("videoJuegos.urls")),
