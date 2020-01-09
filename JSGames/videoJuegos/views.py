@@ -1,5 +1,5 @@
 #encoding:utf-8
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.forms import AuthenticationForm
@@ -8,8 +8,10 @@ from datetime import datetime
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from videoJuegos.models import Genero, VideoJuego, Consola, Cliente
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth  import login, authenticate
+from videoJuegos.forms import CustomUserForm
+from django.contrib.auth.models import User
 
 path="C:\\Users\\Usuario\\Desktop\\Universidad\\cuarto año\\AII\\Proyecto git\\ProyectoAii\\JSGames\\data"
 #path="C:\\Users\\sergi\\Desktop\\Mi Equipo\\Facultad\\CUARTO CURSO\\ACCESO INTELIGENTE A LA INFORMACION\\PROYECTO AII\\ProyectoAii\\JSGames\\data"
@@ -325,28 +327,30 @@ def populateConsola():
         Consola.objects.bulk_create(listaConsolas)
         print("Consolas cargadas")
         print("----------------------------------------------")
-'''        
-def client_show(request):
-    return render(request, "videoJuegos/cliente_show.html")
-'''
-
-   
-def dashboardView(request):
-    return render(request,'videoJuegos/dashboard.html')
        
 def registerView(request):
     if request.method == "POST":
-        form=UserCreationForm(request.POST)
+        form=CustomUserForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("login_url")
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user= authenticate(username=username, password= password)
+            login(request, user)
+            return redirect("startPage")
     else:
-        form=UserCreationForm()
+        form=CustomUserForm()
         
     return render(request,'videoJuegos/cliente_form.html', {"form":form})
 
 def startPage(request):
-    return render(request, 'videoJuegos/startPage.html',{'STATIC_URL':settings.STATIC_URL})
+    return render(request, 'videoJuegos/startPage.html')
+
+def showUser(request):
+    
+    idUsuario =request.user.id
+    usuario = get_object_or_404(User, pk=idUsuario)
+    return render(request, 'videoJuegos/showUser.html', {'user':usuario})
 
             
             
