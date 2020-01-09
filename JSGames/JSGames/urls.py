@@ -22,12 +22,13 @@ urlpatterns = [
     
     path('admin/', admin.site.urls),
     path('index.html/', views.index,name="index"),
-    path('videoJuegos/',views.index),
+    path('videoJuegos/',views.index, name="inicio"),
     path('ingresar/', views.ingresar),
     path('populate/', views.populateDatabase),
     path('videoJuegos/', include("videoJuegos.urls")),
     path('login/', LoginView.as_view(), name="login_url"),
     path('register/', views.registerView, name="register_url"),
+    path('showUser/',views.showUser, name="show_data_url"),
     path('logout/',LogoutView.as_view(), name="logout"),
     path('',views.startPage, name="startPage"),
     
