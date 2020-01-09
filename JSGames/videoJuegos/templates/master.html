@@ -18,11 +18,8 @@
 	    <nav class="uk-navbar">
 		    <ul class="uk-navbar-nav">
 		    	<li class="{% block poblarBDActiva %} {% endblock %}"><a href="/populate">Poblar Base de Datos - Acceso Restringido</a></li>
-		        <li class="{% block ocupacionesActiva %} {% endblock %}"><a href="/ocupaciones_usuarios">Lista de Usuarios</a></li>
-		        <li class="{% block peliculasActiva %} {% endblock %}"><a href="/mejores_peliculas">Mejores Peliculas</a></li>
-		        <li class="{% block buscarPeliculasActiva %} {% endblock %}"><a href="/busqueda_peliculas">Buscar Peliculas</a></li>
-		        <li class="{% block buscarUsuarioActiva %} {% endblock %}"><a href="/puntuaciones_usuario">Buscar Usuario</a></li>
 		        <li><a href="/index.html">Inicio</a></li>
+		        <li><a href="{% url 'logout' %}">Salir</a></li>
 		    </ul>
 		</nav>
 
