@@ -49,20 +49,15 @@ class VideoJuego(models.Model):
 
 
 class Cliente(models.Model):
-    idUsuario = models.TextField(primary_key=True)
-    nombre = models.CharField(max_length=30,verbose_name='Nombre', null=False)
-    apellidos = models.CharField(max_length=50,verbose_name='Apellidos', null=False)
-    password = models.CharField(max_length=30,verbose_name='Contraseña', null=False)
-    edad = models.IntegerField(verbose_name='Edad', help_text='Debe introducir una edad', null=False)
-    sexo = models.CharField(max_length=1, verbose_name='Sexo', help_text='Debe elegir entre M o F', null=False)
-    codigoPostal = models.CharField(max_length=5,verbose_name='Código Postal')
+    idCliente = models.AutoField(primary_key=True)
     consolas = models.ManyToManyField(Consola, blank=True)
     videoJuegos = models.ManyToManyField(VideoJuego, blank=True)
+    usuario = models.OneToOneField(User,on_delete=models.CASCADE, null=False)
     
     def __str__(self):
-        return self.idUsuario
+        return self.usuario.username
     
     class Meta:
-        ordering = ('idUsuario', )
+        ordering = ('idCliente', )
         
 

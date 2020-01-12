@@ -10,12 +10,13 @@ from django.contrib.auth.decorators import login_required
 from videoJuegos.models import Genero, VideoJuego, Consola, Cliente
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth  import login, authenticate
-from videoJuegos.forms import CustomUserForm
+from videoJuegos.forms import CustomUserForm, ClienteForm
 from django.contrib.auth.models import User
+from twisted.words.protocols.jabber import jstrports
 
-path="C:\\Users\\Usuario\\Desktop\\Universidad\\cuarto año\\AII\\Proyecto git\\ProyectoAii\\JSGames\\data"
+#path="C:\\Users\\Usuario\\Desktop\\Universidad\\cuarto año\\AII\\Proyecto git\\ProyectoAii\\JSGames\\data"
 #path="C:\\Users\\sergi\\Desktop\\Mi Equipo\\Facultad\\CUARTO CURSO\\ACCESO INTELIGENTE A LA INFORMACION\\PROYECTO AII\\ProyectoAii\\JSGames\\data"
-#path = "C:\\Users\\sergi\\Desktop\\Datos"
+path = "C:\\Users\\sergi\\Desktop\\Datos"
 @login_required(login_url='/ingresar')
 def populateDatabase(request):
     populateConsola()
@@ -25,7 +26,7 @@ def populateDatabase(request):
     populateVideoJuegosPS4()
     populateVideoJuegosXboxOne()
     logout(request)  
-    return HttpResponseRedirect('/index.html')
+    return HttpResponseRedirect('/videoJuegos')
 
 @login_required() 
 def index(request):
@@ -352,8 +353,65 @@ def showUser(request):
     usuario = get_object_or_404(User, pk=idUsuario)
     return render(request, 'videoJuegos/showUser.html', {'user':usuario})
 
-            
-            
+def showVideoJuegosCliente(request):
+    
+    JuegosPc = []
+    JuegosNintendo=[]
+    JuegosPs4=[]
+    JuegosXbox=[]
+    idUsuario =request.user.id
+    usuarioActual = get_object_or_404(User, pk=idUsuario)
+    juegosCliente=[]
+    if existeUsuario(usuarioActual)==True:
+        cliente = Cliente.objects.get(usuario=usuarioActual)
+        for g in cliente.videoJuegos.all():
+            juegosCliente.append(g.nombre)
+    
+    Juegos = VideoJuego.objects.all()
+    for j in Juegos:
+        if ("Pc" in j.consola.nombre) and (j.nombre not in juegosCliente):
+            JuegosPc.append(j)
+        if ("Nintendo Switch" in j.consola.nombre) and (j.nombre not in juegosCliente):
+            JuegosNintendo.append(j)
+        if ("PS4" in j.consola.nombre) and (j.nombre not in juegosCliente):
+            JuegosPs4.append(j)
+        if ("Xbox One" in j.consola.nombre) and (j.nombre not in juegosCliente):
+            JuegosXbox.append(j)
+    return render(request, 'videoJuegos/mostrarVideoJuegosCliente.html', 
+                  {"juegosPc":JuegosPc, "juegosNintendo":JuegosNintendo, "juegosPs4":JuegosPs4,"juegosXbox":JuegosXbox})
+
+def agregarJuego(request, idVideoJuegos):
+    
+    #Juego seleccionado y Usuario logueado
+    game = VideoJuego.objects.get(idVideoJuegos=idVideoJuegos)
+    idUsuario =request.user.id
+    usuarioActual = get_object_or_404(User, pk=idUsuario)
+    
+    if not(Cliente.objects.all().exists()) or existeUsuario(usuarioActual)==False:
+        juegosCliente=[]
+        consolasCliente=[]
+        juegosCliente.append(game)
+        consolasCliente.append(game.consola)
+        nuevoCliente = Cliente.objects.create(usuario=usuarioActual)
+        nuevoCliente.consolas.add(game.consola)
+        nuevoCliente.videoJuegos.add(game)
+    else:
+        cliente = Cliente.objects.get(usuario=usuarioActual)
+        cliente.videoJuegos.add(game)
+        if not(game.consola in cliente.consolas.all()):
+            cliente.consolas.add(game.consola)    
+    return redirect(to="showGames_url")
+
+
+#Metodo para verificar que el usuario existe como cliente en BD          
+def existeUsuario(usuario):
+    existe=False
+    Clientes=Cliente.objects.all()
+    for c in Clientes:
+        usuarioCliente = c.usuario
+        if usuario == usuarioCliente:
+            existe =True
+    return existe          
             
             
             

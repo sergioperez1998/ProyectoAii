@@ -1,0 +1,68 @@
+{% extends "videoJuegos/baseContenido.html" %}
+
+<body>
+{% block content %}
+	<h1> Agregar Videojuegos </h1>
+	<hr>
+	<h2>-Juegos Pc-</h2>
+	<table class="table table-hover">
+		<tr>
+			<th>Nombre</th>
+			<th>Opciones</th>
+		</tr>
+		{% for datoPc in juegosPc %}
+		<tr>
+			<td>{{datoPc.nombre}}</td>
+			<td><a href="{% url 'agregarJuego_url' datoPc.idVideoJuegos %}">Agregar</a></td>
+			
+		</tr>
+		{% endfor %}	
+	</table>
+	<hr>
+	<h2>-Juegos Nintendo Switch-</h2>
+	<table class="table table-hover">
+		<tr>
+			<th>Nombre</th>
+			<th>Opciones</th>
+		</tr>
+		{% for datoNintendo in juegosNintendo %}
+		<tr>
+			<td>{{datoNintendo.nombre}}</td>
+			<td><a href="{% url 'agregarJuego_url' datoNintendo.idVideoJuegos %}">Agregar</a></td>
+			
+		</tr>
+		{% endfor %}
+	</table>
+	<hr>
+	<h2>-Juegos PS4-</h2>
+	<table class="table table-hover">
+		<tr>
+			<th>Nombre</th>
+			<th>Opciones</th>
+		</tr>
+		{% for datoPs4 in juegosPs4 %}
+		<tr>
+			<td>{{datoPs4.nombre}}</td>
+			<td><a href="{% url 'agregarJuego_url' datoPs4.idVideoJuegos %}">Agregar</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+	<hr>
+	<h2>-Juegos Xbox One-</h2>
+	<table class="table table-hover">
+		<tr>
+			<th>Nombre</th>
+			<th>Opciones</th>
+		</tr>
+		{% for datoXbox in juegosXbox %}
+		<tr>
+			<td>{{datoXbox.nombre}}</td>
+			<td><a href="{% url 'agregarJuego_url' datoXbox.idVideoJuegos %}">Agregar</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+	<hr>
+	<br>
+	<a href="{% url 'inicio' %}" class="btn btn-success">Atras</a>
+{% endblock content %}
+</body>

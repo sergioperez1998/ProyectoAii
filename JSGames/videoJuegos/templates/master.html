@@ -3,9 +3,10 @@
   <head>
 	<meta charset='utf-8'>
   </head>
+ {% extends "videoJuegos/baseContenido.html" %}
   <body>
   
-  
+  {% block content %}
   	<div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
 	    <h1>Bienvenidos a JSGames </h1>
 	    <nav class="uk-navbar">
@@ -13,11 +14,13 @@
 		    	<li class="{% block poblarBDActiva %} {% endblock %}"><a href="/populate">Poblar Base de Datos - Acceso Restringido</a></li>
 		        <li><a href="{% url 'inicio' %}">Inicio</a></li>
 		        <li><a href="{% url 'show_data_url' %}">Mostrar informacion personal</a></li>
+		         <li><a href="{% url 'showGames_url' %}">Agregar VideoJuegos</a></li>
 		        <li><a href="{% url 'logout' %}">Salir</a></li>
 		    </ul>
 		</nav>
 
 		<hr>
 	</div>
+	{% endblock content %}
   </body>
 </html>
