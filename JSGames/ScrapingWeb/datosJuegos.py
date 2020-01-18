@@ -117,7 +117,7 @@ def datosJuegosPc():
 def datosJuegosXboxOne():
 
     urlBasica="https://www.eneba.com"
-    urlJuegosXboxOne="https://www.eneba.com/es/store?page=3&platforms[]=XBOX&types[]=game"
+    urlJuegosXboxOne="https://www.eneba.com/es/store?page=5&platforms[]=XBOX&types[]=game"
 
     month = {	'January':'01',
 		'February':'02',

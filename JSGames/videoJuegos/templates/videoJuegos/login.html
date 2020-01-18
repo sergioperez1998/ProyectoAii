@@ -1,0 +1,15 @@
+{% extends "videoJuegos/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+	<h1> Login account </h1>
+	<form action="" method="post" autocomplete="off">
+		{% csrf_token %}
+		{{form|crispy}}
+		
+		<button type="submit" class= "btn btn-success"><i class="fas fa-database"></i>Entrar</button>
+		<button type="button" onclick="history.back()" class= "btn btn-success"><i class="fas fa-database"></i>Atras</button>
+	</form>
+	
+	
+{% endblock content %}

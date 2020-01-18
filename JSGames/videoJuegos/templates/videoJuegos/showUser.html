@@ -1,0 +1,28 @@
+{% extends "videoJuegos/baseStartPage.html" %}
+
+{% block content %}
+	<h1> Informacion personal de {{user.first_name}} </h1>
+	
+	<table class="table table-hover">
+	
+		<tr>
+			<td> Nombre: {{user.first_name}} </td>
+		</tr>
+		
+		<tr>
+			<td> Apellidos: {{user.last_name}} </td>
+		</tr>
+		
+		<tr>
+			<td> Email: {{user.email}} </td>
+		</tr>
+		
+		<tr>
+			<td> Nombre de usuario: {{user.username}} </td>
+		</tr>
+	
+	</table>
+	
+	<button type="button" onclick="history.back()" class= "btn btn-success"><i class="fas fa-database"></i>Atras</button>
+	
+{% endblock content %}
