@@ -1,0 +1,31 @@
+{% extends "videoJuegos/baseContenidoCatalogo.html" %}
+
+
+<body>
+{% block content %}
+
+	
+	<div class="productos">
+	
+		<div class ="row center-xs">
+		{% for videoJuego in videoJuegosCliente %}
+			<div class ="col-xs-10 col-sm-6 col-md-4 producto">
+				<h4 align="center">{{videoJuego.nombre}}</h4>
+				<div class="card">
+					
+					<img alt="imagen videoJuego" src={{videoJuego.urlImg}}>
+					
+		
+				</div>
+			</div>
+		{% endfor %}
+		</div>
+	
+	</div>
+	
+
+	<hr>
+	<br>
+	<a href="{% url 'showConsolasDelCliente_url' %}" class="btn btn-success">Atras</a>
+{% endblock content %}
+</body>

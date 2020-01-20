@@ -14,9 +14,9 @@ from videoJuegos.forms import CustomUserForm, ClienteForm
 from django.contrib.auth.models import User
 from twisted.words.protocols.jabber import jstrports
 
-#path="C:\\Users\\Usuario\\Desktop\\Universidad\\cuarto año\\AII\\Proyecto git\\ProyectoAii\\JSGames\\data"
+path="C:\\Users\\Usuario\\Desktop\\Universidad\\cuarto año\\AII\\Proyecto git\\ProyectoAii\\JSGames\\data"
 #path="C:\\Users\\sergi\\Desktop\\Mi Equipo\\Facultad\\CUARTO CURSO\\ACCESO INTELIGENTE A LA INFORMACION\\PROYECTO AII\\ProyectoAii\\JSGames\\data"
-path = "C:\\Users\\sergi\\Desktop\\Datos"
+#path = "C:\\Users\\sergi\\Desktop\\Datos"
 @login_required(login_url='/ingresar')
 def populateDatabase(request):
     populateConsola()
@@ -207,7 +207,9 @@ def populateVideoJuegosPS4():
             
             
             listaAux=[]
+            
             for genero in generos:
+               
                 listaAux.append(Genero.objects.get(nombre=genero.strip("[ ' ]")))
             listaGeneros.append(listaAux)
            
@@ -266,7 +268,7 @@ def populateVideoJuegosXboxOne():
             
             listaAux=[]
             for genero in generos:
-                
+               
                 listaAux.append(Genero.objects.get(nombre=genero.strip("[ ' ]")))
             listaGeneros.append(listaAux)
            
@@ -411,7 +413,29 @@ def existeUsuario(usuario):
         usuarioCliente = c.usuario
         if usuario == usuarioCliente:
             existe =True
-    return existe          
-            
-            
+    return existe      
+
+def showConsolasCliente(request):
+    
+    idUsuario =request.user.id
+    usuarioActual = get_object_or_404(User, pk=idUsuario)
+    consolasCliente=[]
+    if existeUsuario(usuarioActual)==True:
+        cliente = Cliente.objects.get(usuario=usuarioActual)
+        consolasCliente=cliente.consolas.all()
+    
+
+    return render(request, 'videoJuegos/mostrarConsolasDelCliente.html',{"consolasCliente":consolasCliente})
+def showVideoJuegosDelCliente(request, nombre):
+    
+    idUsuario =request.user.id
+    usuarioActual = get_object_or_404(User, pk=idUsuario)
+    videojuegosCliente=[]
+    if existeUsuario(usuarioActual)==True:
+        cliente = Cliente.objects.get(usuario=usuarioActual)
+        videoJuegosCliente=cliente.videoJuegos.filter(consola__nombre=nombre)
+    
+
+    return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente.html',{"videoJuegosCliente":videoJuegosCliente})        
+                   
             

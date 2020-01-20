@@ -14,10 +14,9 @@ Deporte
 Rompecabezas
 Plataforma
 Estrategia
-Musica
-Arcade
-Educativo
 Lucha
+Arcade
 Hack & Slash
+Educativo
 Otro
 
