@@ -13,8 +13,9 @@
 		    <ul class="uk-navbar-nav">
 		    	<li class="{% block poblarBDActiva %} {% endblock %}"><a href="/populate">Poblar Base de Datos - Acceso Restringido</a></li>
 		        <li><a href="{% url 'inicio' %}">Inicio</a></li>
+		        <li><a href="{% url 'showConsolasDelCliente_url' %}">Mis consolas</a></li>
 		        <li><a href="{% url 'show_data_url' %}">Mostrar informacion personal</a></li>
-		         <li><a href="{% url 'showGames_url' %}">Agregar VideoJuegos</a></li>
+		        <li><a href="{% url 'showGames_url' %}">Agregar VideoJuegos</a></li>
 		        <li><a href="{% url 'logout' %}">Salir</a></li>
 		    </ul>
 		</nav>

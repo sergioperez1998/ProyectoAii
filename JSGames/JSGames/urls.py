@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from videoJuegos import views
 from django.contrib.auth.views import LoginView, LogoutView
-from videoJuegos.views import agregarJuego
+from videoJuegos.views import agregarJuego, showVideoJuegosDelCliente
 
 urlpatterns = [
     
@@ -28,11 +28,14 @@ urlpatterns = [
     path('videoJuegos/', include("videoJuegos.urls")),
     path('login/', LoginView.as_view(), name="login_url"),
     path('register/', views.registerView, name="register_url"),
+    path('videoJuegos/showConsolasDelCliente/', views.showConsolasCliente, name="showConsolasDelCliente_url"),
+    path('videoJuegos/showVideoJuegosDelCliente/<nombre>/',showVideoJuegosDelCliente, name="juegosDelCLiente_url"),
     path('videoJuegos/showVideoGames/', views.showVideoJuegosCliente, name="showGames_url"),
     path('videoJuegos/showVideoGames/agregarJuego/<idVideoJuegos>/',agregarJuego, name="agregarJuego_url"),
     path('showUser/',views.showUser, name="show_data_url"),
     path('logout/',LogoutView.as_view(), name="logout"),
     path('',views.startPage, name="startPage"),
+    
     
 
 ]

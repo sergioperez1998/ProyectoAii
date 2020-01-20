@@ -17,10 +17,6 @@ Estrategia
 Lucha
 Arcade
 Hack & Slash
-<<<<<<< HEAD
 Educativo
 Otro
-=======
-Otro
 
->>>>>>> 38d02401414f4a8866dce9ec644550e557e0be07
