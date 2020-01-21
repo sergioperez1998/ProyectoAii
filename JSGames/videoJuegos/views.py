@@ -450,9 +450,9 @@ def recomendarVideojuegos(request):
     if existeUsuario(usuarioActual)==True:
         cliente = Cliente.objects.get(usuario=usuarioActual)
         for v in cliente.videoJuegos.all():
-            juegosCliente.append(v.nombre)
+            juegosCliente.append(v)
             for g in v.generos:
-                generosCliente.append(g.nombre)
+                generosCliente.append(g)
                 list(set(generosCliente))
 
         for v in Videojuego.objects.all():
