@@ -13,6 +13,7 @@ from django.contrib.auth  import login, authenticate
 from videoJuegos.forms import CustomUserForm, ClienteForm
 from django.contrib.auth.models import User
 from twisted.words.protocols.jabber import jstrports
+from random import randint
 
 path="C:\\Users\\Usuario\\Desktop\\Universidad\\cuarto año\\AII\\Proyecto git\\ProyectoAii\\JSGames\\data"
 #path="C:\\Users\\sergi\\Desktop\\Mi Equipo\\Facultad\\CUARTO CURSO\\ACCESO INTELIGENTE A LA INFORMACION\\PROYECTO AII\\ProyectoAii\\JSGames\\data"
@@ -437,5 +438,49 @@ def showVideoJuegosDelCliente(request, nombre):
     
 
     return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente.html',{"videoJuegosCliente":videoJuegosCliente})        
-                   
+
+def recomendarVideojuegos(request):
+
+    idUsuario = request.user.id
+    usuarioActual = get_object_or_404(User, pk=idUsuario)
+    generosCliente = []
+    juegosCliente = []
+    juegosARecomendar = []
+    recomendacion = []
+    if existeUsuario(usuarioActual)==True:
+        cliente = Cliente.objects.get(usuario=usuarioActual)
+        for v in cliente.videoJuegos.all():
+            juegosCliente.append(v.nombre)
+            for g in v.generos:
+                generosCliente.append(g.nombre)
+                list(set(generosCliente))
+
+        for v in Videojuego.objects.all():
+            for g in v.generos:
+                if g in generosCliente:
+                    juegosARecomendar.append(v)
+        for v in juegosCliente:
+            juegosARecomendar.remove(v)
+        if len(juegosARecomendar>5):
+            numero1 = randint(0, len(juegosARecomendar)-1)
+            numero2 = randint(0, len(juegosARecomendar)-1)
+            numero3 = randint(0, len(juegosARecomendar)-1)
+            numero4 = randint(0, len(juegosARecomendar)-1)
+            numero5 = randint(0, len(juegosARecomendar)-1)
+
+            recomendacion.append(juegosARecomendar[numero1])
+            recomendacion.append(juegosARecomendar[numero2])
+            recomendacion.append(juegosARecomendar[numero3])
+            recomendacion.append(juegosARecomendar[numero4])
+            recomendacion.append(juegosARecomendar[numero5])
+
+            return render('videoJuegos/recomendacion.html',{"recomendacion":recomendacion, "cliente":cliente})
+        
+        else:
+            return render('videoJuegos/recomendacion.html',{"recomendacion":juegosARecomendar, "cliente":cliente})
+
+
+    
+        
+
             

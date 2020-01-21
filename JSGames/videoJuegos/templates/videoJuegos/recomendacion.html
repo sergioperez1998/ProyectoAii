@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>JSGames</title>
+</head>
+<body>
+{% include 'header.html' %}
+<section>
+<h1>Videojuegos recomendados para el Cliente {{cliente.idCliente}}</h1>
+{% if recomendacion %}
+    {% for v in recomendacion %}
+        <ul>Videojuego: {{v.nombre}} - Precio: {{v.precio}}</ul>
+{% else %}
+    {% for v in juegosARecomendar %}
+        <ul>Videojuego: {{v.nombre}} - Precio: {{v.precio}}</ul>
+{% empty %}
+<h2> El Cliente no tiene ningún videojuego </h2>
+{% endfor %}
+</section>
+</body>
+</html>
