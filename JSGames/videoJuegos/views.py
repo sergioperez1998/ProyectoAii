@@ -13,6 +13,9 @@ from django.contrib.auth  import login, authenticate
 from videoJuegos.forms import CustomUserForm, ClienteForm, BusquedaPorGeneroForm
 from django.contrib.auth.models import User
 from twisted.words.protocols.jabber import jstrports
+from django.template.defaulttags import ifequal
+
+
 
 path="C:\\Users\\Usuario\\Desktop\\Universidad\\cuarto año\\AII\\Proyecto git\\ProyectoAii\\JSGames\\data"
 #path="C:\\Users\\sergi\\Desktop\\Mi Equipo\\Facultad\\CUARTO CURSO\\ACCESO INTELIGENTE A LA INFORMACION\\PROYECTO AII\\ProyectoAii\\JSGames\\data"
@@ -438,7 +441,7 @@ def showVideoJuegosDelCliente(request, nombre):
 
     return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente.html',{"videoJuegosCliente":videoJuegosCliente})        
                    
-def eliminarJuego(request, idVideoJuegos):
+def eliminarJuego(request, idVideoJuegos, buscar):
     
     #Juego seleccionado y Usuario logueado
     game = VideoJuego.objects.get(idVideoJuegos=idVideoJuegos)
@@ -450,9 +453,11 @@ def eliminarJuego(request, idVideoJuegos):
     cliente.videoJuegos.filter(idVideoJuegos=idVideoJuegos).delete()
     videoJuegosCliente=cliente.videoJuegos.filter(consola__nombre=nombre)
     
-        
-    return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente.html',{"videoJuegosCliente":videoJuegosCliente})  
-            
+    if 'nobuscar' in buscar:    
+        return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente.html',{"videoJuegosCliente":videoJuegosCliente})  
+    else:
+        return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente2.html',{})  
+                
 def mostrar_videoJuegos_genero(request):
     formulario = BusquedaPorGeneroForm()
     videoJuegosCliente = None
@@ -477,11 +482,52 @@ def mostrar_videoJuegos_genero(request):
    
     return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente2.html', {'formulario':formulario, 'videoJuegosCliente':videoJuegosCliente})
 
+def mostrarVideoJuego(request, idVideoJuegos, buscar):
+    
+    #Juego seleccionado y Usuario logueado
+    listaGeneros=[]
+    todoUno = ""
+    
+    videoJuego = VideoJuego.objects.get(idVideoJuegos=idVideoJuegos)
+    consola=videoJuego.consola.nombre
+    print(consola)
+    
+    for genero in videoJuego.generos.all():
+        
+        listaGeneros.append(genero.nombre)
+        todoUno=str(todoUno)+ str(genero.nombre) +", "
+        
+        
+    generos = todoUno[:-2]
+    
+
+   
+    
+    return render(request, 'videoJuegos/mostrarVideoJuego.html',{"videoJuego":videoJuego,'generos':generos, 'consola':consola, 'buscar':buscar})  
 
 
 
 
+def mostrarVideoJuegoAgregar(request, idVideoJuegos):
+    
+    #Juego seleccionado y Usuario logueado
+    listaGeneros=[]
+    todoUno = ""
+    
+    videoJuego = VideoJuego.objects.get(idVideoJuegos=idVideoJuegos)
+    
+    for genero in videoJuego.generos.all():
+        
+        listaGeneros.append(genero.nombre)
+        todoUno=str(todoUno)+ str(genero.nombre) +", "
+        
+        
+    generos = todoUno[:-2]
+    
 
+   
+    
+    return render(request, 'videoJuegos/mostrarVideoJuego.html',{"videoJuego":videoJuego,'generos':generos})  
 
 
 

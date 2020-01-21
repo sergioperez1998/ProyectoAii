@@ -18,7 +18,8 @@ from django.urls import path, include
 from videoJuegos import views
 from django.contrib.auth.views import LoginView, LogoutView
 from videoJuegos.views import agregarJuego, showVideoJuegosDelCliente,\
-    eliminarJuego, mostrar_videoJuegos_genero
+    eliminarJuego, mostrar_videoJuegos_genero, mostrarVideoJuego,\
+    mostrarVideoJuegoAgregar
 
 urlpatterns = [
     
@@ -33,11 +34,13 @@ urlpatterns = [
     path('videoJuegos/showVideoJuegosDelCliente/<nombre>/',showVideoJuegosDelCliente, name="juegosDelCLiente_url"),
     path('videoJuegos/showVideoGames/', views.showVideoJuegosCliente, name="showGames_url"),
     path('videoJuegos/showVideoGames/agregarJuego/<idVideoJuegos>/',agregarJuego, name="agregarJuego_url"),
-    path('videoJuegos/showVideoGames/eliminarJuego/<idVideoJuegos>/',eliminarJuego, name="eliminarJuego_url"),
+    path('videoJuegos/showVideoGames/eliminarJuego/<idVideoJuegos>/<buscar>',eliminarJuego, name="eliminarJuego_url"),
+    path('videoJuegos/showVideoGames/<idVideoJuegos>/<buscar>',mostrarVideoJuego, name="mostrarVideoJuego_url"),
+    path('videoJuegos/showVideoGamesAgregar/<idVideoJuegos>/',mostrarVideoJuegoAgregar, name="mostrarVideoJuegoAgregar_url"),
     path('showUser/',views.showUser, name="show_data_url"),
     path('logout/',LogoutView.as_view(), name="logout"),
     path('',views.startPage, name="startPage"),
-    path('videoJuegos/mostrarVideoJuegosDelCliente2/',mostrar_videoJuegos_genero),
+    path('videoJuegos/mostrarVideoJuegosDelCliente2/',mostrar_videoJuegos_genero, name="buscarGenero_url"),
     
     
 
