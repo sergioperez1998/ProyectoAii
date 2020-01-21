@@ -33,6 +33,7 @@ urlpatterns = [
     path('videoJuegos/showVideoGames/', views.showVideoJuegosCliente, name="showGames_url"),
     path('videoJuegos/showVideoGames/agregarJuego/<idVideoJuegos>/',agregarJuego, name="agregarJuego_url"),
     path('showUser/',views.showUser, name="show_data_url"),
+    path('recomendacion', views.recomendarVideojuegos, name="recomendacion"),
     path('logout/',LogoutView.as_view(), name="logout"),
     path('',views.startPage, name="startPage"),
     
