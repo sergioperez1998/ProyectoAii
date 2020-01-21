@@ -28,12 +28,20 @@ def populateDatabase(request):
     populateVideoJuegosPc()
     populateVideoJuegosPS4()
     populateVideoJuegosXboxOne()
-    logout(request)  
-    return HttpResponseRedirect('/videoJuegos')
+     
+    idUsuario =request.user.id
+    usuarioActual = get_object_or_404(User, pk=idUsuario)
+    nombre=usuarioActual.username 
+    logout(request)
+    return render(request, 'index.html',{ 'nombre':nombre})
 
 @login_required() 
 def index(request):
-    return render(request, 'index.html',{'STATIC_URL':settings.STATIC_URL})
+    idUsuario =request.user.id
+    usuarioActual = get_object_or_404(User, pk=idUsuario)
+    nombre=usuarioActual.username
+    
+    return render(request, 'master.html',{'STATIC_URL':settings.STATIC_URL, 'nombre':nombre})
 
 def ingresar(request):
     if request.user.is_authenticated:
@@ -442,7 +450,7 @@ def showVideoJuegosDelCliente(request, nombre):
     return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente.html',{"videoJuegosCliente":videoJuegosCliente})        
                    
 def eliminarJuego(request, idVideoJuegos, buscar):
-    
+    listaJuegosCliente=[]
     #Juego seleccionado y Usuario logueado
     game = VideoJuego.objects.get(idVideoJuegos=idVideoJuegos)
     
@@ -450,18 +458,29 @@ def eliminarJuego(request, idVideoJuegos, buscar):
     idUsuario =request.user.id
     usuarioActual = get_object_or_404(User, pk=idUsuario)
     cliente = Cliente.objects.get(usuario=usuarioActual)
-    cliente.videoJuegos.filter(idVideoJuegos=idVideoJuegos).delete()
+    cliente.videoJuegos.remove(game)
+    
+    
+    
     videoJuegosCliente=cliente.videoJuegos.filter(consola__nombre=nombre)
     
     if 'nobuscar' in buscar:    
         return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente.html',{"videoJuegosCliente":videoJuegosCliente})  
     else:
-        return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente2.html',{})  
+        return render(request, 'index.html',{})  
                 
 def mostrar_videoJuegos_genero(request):
     formulario = BusquedaPorGeneroForm()
     videoJuegosCliente = None
     genero=None
+    cadenaNombre=''
+    cadena=''
+    generos=Genero.objects.all()
+    for g in generos:
+        cadena=cadena + g.nombre+ ", "
+        
+    cadenaNombre = '( ' +cadena[2:-2]+' )' 
+        
     try:
         if request.method=='POST':
             formulario = BusquedaPorGeneroForm(request.POST)
@@ -480,7 +499,7 @@ def mostrar_videoJuegos_genero(request):
     except:
         videoJuegosCliente=None       
    
-    return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente2.html', {'formulario':formulario, 'videoJuegosCliente':videoJuegosCliente})
+    return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente2.html', {'formulario':formulario, 'videoJuegosCliente':videoJuegosCliente, 'cadena':cadenaNombre})
 
 def mostrarVideoJuego(request, idVideoJuegos, buscar):
     
@@ -511,14 +530,14 @@ def mostrarVideoJuego(request, idVideoJuegos, buscar):
 def mostrarVideoJuegoAgregar(request, idVideoJuegos):
     
     #Juego seleccionado y Usuario logueado
-    listaGeneros=[]
+    
     todoUno = ""
     
     videoJuego = VideoJuego.objects.get(idVideoJuegos=idVideoJuegos)
     
     for genero in videoJuego.generos.all():
         
-        listaGeneros.append(genero.nombre)
+        
         todoUno=str(todoUno)+ str(genero.nombre) +", "
         
         

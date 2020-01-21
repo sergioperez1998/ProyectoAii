@@ -9,6 +9,7 @@
     	<form class="" id="formulario" method="post" action="">{% csrf_token %}
     		<fieldset>
     			<legend>Busqueda de VideoJuegos por genero:</legend>
+    			<p>{{cadena}}</p>
 				<input type="text" name="genero" id="genero" placeholder="genero"/>
     			
     			<input class="btn btn-success" type='submit' value='Realizar Busqueda'/>
@@ -17,9 +18,11 @@
     	</div>
     	
     </div>
+ 
     	
 	
 	{% if videoJuegosCliente %}
+	 
 	<BR>
 	{%  with buscar='buscar' %}
 	<div class="productos">
@@ -33,10 +36,10 @@
 				<div class="card">
 					
 					<a href="{% url 'mostrarVideoJuego_url' videoJuego.idVideoJuegos buscar %}"><img alt="imagen videoJuego" src={{videoJuego.urlImg}}></a>
-					
 		
 				</div>
 			</div>
+		
 			
 		{% endfor %}
 		
