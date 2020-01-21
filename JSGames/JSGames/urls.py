@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('videoJuegos/',views.index, name="inicio"),
     path('ingresar/', views.ingresar),
-    path('populate/', views.populateDatabase),
+    path('populate/', views.populateDatabase, name="popular"),
     path('videoJuegos/', include("videoJuegos.urls")),
     path('login/', LoginView.as_view(), name="login_url"),
     path('register/', views.registerView, name="register_url"),
