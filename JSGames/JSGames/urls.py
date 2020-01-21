@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from videoJuegos import views
 from django.contrib.auth.views import LoginView, LogoutView
-from videoJuegos.views import agregarJuego, showVideoJuegosDelCliente
+from videoJuegos.views import agregarJuego, showVideoJuegosDelCliente,\
+    eliminarJuego, mostrar_videoJuegos_genero
 
 urlpatterns = [
     
@@ -32,9 +33,11 @@ urlpatterns = [
     path('videoJuegos/showVideoJuegosDelCliente/<nombre>/',showVideoJuegosDelCliente, name="juegosDelCLiente_url"),
     path('videoJuegos/showVideoGames/', views.showVideoJuegosCliente, name="showGames_url"),
     path('videoJuegos/showVideoGames/agregarJuego/<idVideoJuegos>/',agregarJuego, name="agregarJuego_url"),
+    path('videoJuegos/showVideoGames/eliminarJuego/<idVideoJuegos>/',eliminarJuego, name="eliminarJuego_url"),
     path('showUser/',views.showUser, name="show_data_url"),
     path('logout/',LogoutView.as_view(), name="logout"),
     path('',views.startPage, name="startPage"),
+    path('videoJuegos/mostrarVideoJuegosDelCliente2/',mostrar_videoJuegos_genero),
     
     
 

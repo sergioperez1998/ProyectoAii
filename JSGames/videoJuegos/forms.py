@@ -19,3 +19,6 @@ class ClienteForm(forms.Form):
     OPTIONS = ["A","B","C"]
     
     Consolas = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,choices=OPTIONS)
+    
+class BusquedaPorGeneroForm(forms.Form):
+    genero = forms.CharField(label="genero", widget=forms.TextInput, required=True)

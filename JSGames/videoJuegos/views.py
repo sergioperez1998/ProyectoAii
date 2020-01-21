@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from videoJuegos.models import Genero, VideoJuego, Consola, Cliente
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth  import login, authenticate
-from videoJuegos.forms import CustomUserForm, ClienteForm
+from videoJuegos.forms import CustomUserForm, ClienteForm, BusquedaPorGeneroForm
 from django.contrib.auth.models import User
 from twisted.words.protocols.jabber import jstrports
 
@@ -438,4 +438,56 @@ def showVideoJuegosDelCliente(request, nombre):
 
     return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente.html',{"videoJuegosCliente":videoJuegosCliente})        
                    
+def eliminarJuego(request, idVideoJuegos):
+    
+    #Juego seleccionado y Usuario logueado
+    game = VideoJuego.objects.get(idVideoJuegos=idVideoJuegos)
+    
+    nombre=game.consola.nombre
+    idUsuario =request.user.id
+    usuarioActual = get_object_or_404(User, pk=idUsuario)
+    cliente = Cliente.objects.get(usuario=usuarioActual)
+    cliente.videoJuegos.filter(idVideoJuegos=idVideoJuegos).delete()
+    videoJuegosCliente=cliente.videoJuegos.filter(consola__nombre=nombre)
+    
+        
+    return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente.html',{"videoJuegosCliente":videoJuegosCliente})  
             
+def mostrar_videoJuegos_genero(request):
+    formulario = BusquedaPorGeneroForm()
+    videoJuegosCliente = None
+    genero=None
+    try:
+        if request.method=='POST':
+            formulario = BusquedaPorGeneroForm(request.POST)
+        
+            if formulario.is_valid():
+                idUsuario =request.user.id
+                usuarioActual = get_object_or_404(User, pk=idUsuario)
+                cliente = Cliente.objects.get(usuario=usuarioActual)
+                videoJuegosClienteCompleto=cliente.videoJuegos.all()
+                nombreGenero=formulario.cleaned_data['genero']
+            
+            
+                genero = Genero.objects.get(nombre=nombreGenero.capitalize())
+           
+                videoJuegosCliente = videoJuegosClienteCompleto.filter(generos=genero)
+    except:
+        videoJuegosCliente=None       
+   
+    return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente2.html', {'formulario':formulario, 'videoJuegosCliente':videoJuegosCliente})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

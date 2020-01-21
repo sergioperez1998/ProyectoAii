@@ -4,6 +4,23 @@
 <body>
 {% block content %}
 
+	 <div class ="row center-xs">
+	 <div class ="col-xs-9 col-sm-10 col-md-10 producto">
+    	<form class="" id="formulario" method="post" action="">{% csrf_token %}
+    		<fieldset>
+    			<legend>Busqueda de VideoJuegos por genero:</legend>
+				<input type="text" name="genero" id="genero" placeholder="genero"/>
+    			
+    			<input class="btn btn-success" type='submit' value='Realizar Busqueda'/>
+    		</fieldset>
+    	</form>
+    	</div>
+    	
+    </div>
+    	
+	
+	{% if videoJuegosCliente %}
+	<BR>
 	<div class="productos">
 	
 		<div class ="row center-xs">
@@ -23,9 +40,12 @@
 	
 	</div>
 	
+		{% endif %}
+	
 
 	<hr>
 	<br>
-	<a href="{% url 'showConsolasDelCliente_url' %}" class="btn btn-success">Atras</a>
+	
+	<a href="{% url 'inicio' %}" class="btn btn-success">Atras</a>
 {% endblock content %}
 </body>
