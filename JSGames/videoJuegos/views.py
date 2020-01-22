@@ -448,21 +448,28 @@ def recomendarVideojuegos(request):
     juegosCliente = []
     juegosARecomendar = []
     recomendacion = []
+    boolean = True
     if existeUsuario(usuarioActual)==True:
         cliente = Cliente.objects.get(usuario=usuarioActual)
+            
+        if len(cliente.videoJuegos.all())==0:
+            return redirect(to="showGames_url")
+        
         for v in cliente.videoJuegos.all():
             juegosCliente.append(v)
-            for g in v.generos:
-                generosCliente.append(g)
-                list(set(generosCliente))
+            for g in v.generos.all():
+                if g not in generosCliente:
+                    generosCliente.append(g)
 
-        for v in Videojuego.objects.all():
-            for g in v.generos:
+        for v in VideoJuego.objects.all():
+            for g in v.generos.all():
                 if g in generosCliente:
-                    juegosARecomendar.append(v)
+                    if v not in juegosARecomendar:
+                        juegosARecomendar.append(v)
+
         for v in juegosCliente:
             juegosARecomendar.remove(v)
-        if len(juegosARecomendar>5):
+        if len(juegosARecomendar)>5:
             numero1 = randint(0, len(juegosARecomendar)-1)
             numero2 = randint(0, len(juegosARecomendar)-1)
             numero3 = randint(0, len(juegosARecomendar)-1)
@@ -470,15 +477,19 @@ def recomendarVideojuegos(request):
             numero5 = randint(0, len(juegosARecomendar)-1)
 
             recomendacion.append(juegosARecomendar[numero1])
-            recomendacion.append(juegosARecomendar[numero2])
-            recomendacion.append(juegosARecomendar[numero3])
-            recomendacion.append(juegosARecomendar[numero4])
-            recomendacion.append(juegosARecomendar[numero5])
+            if juegosARecomendar[numero2] not in recomendacion:
+                recomendacion.append(juegosARecomendar[numero2])
+            if juegosARecomendar[numero3] not in recomendacion:
+                recomendacion.append(juegosARecomendar[numero3])
+            if juegosARecomendar[numero4] not in recomendacion:
+                recomendacion.append(juegosARecomendar[numero4])
+            if juegosARecomendar[numero5] not in recomendacion:
+                recomendacion.append(juegosARecomendar[numero5])
 
-            return render('videoJuegos/recomendacion.html',{"recomendacion":recomendacion, "cliente":cliente})
-        
+            return render(request, 'videoJuegos/recomendacion.html',{"recomendacion":recomendacion, "cliente":cliente, "boolean":boolean})
+            
         else:
-            return render('videoJuegos/recomendacion.html',{"recomendacion":juegosARecomendar, "cliente":cliente})
+            return render(request, 'videoJuegos/recomendacion.html',{"recomendacion":juegosARecomendar, "cliente":cliente, "boolean":boolean})
 
 
     
