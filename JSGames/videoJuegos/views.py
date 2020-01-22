@@ -15,7 +15,8 @@ from django.contrib.auth.models import User
 from twisted.words.protocols.jabber import jstrports
 from random import randint
 
-path="C:\\Users\\Usuario\\Desktop\\Universidad\\cuarto año\\AII\\Proyecto git\\ProyectoAii\\JSGames\\data"
+path="C:\\Users\\migue\\Desktop\\AII\\ProyectoAii\\JSGames\\data"
+#path="C:\\Users\\Usuario\\Desktop\\Universidad\\cuarto año\\AII\\Proyecto git\\ProyectoAii\\JSGames\\data"
 #path="C:\\Users\\sergi\\Desktop\\Mi Equipo\\Facultad\\CUARTO CURSO\\ACCESO INTELIGENTE A LA INFORMACION\\PROYECTO AII\\ProyectoAii\\JSGames\\data"
 #path = "C:\\Users\\sergi\\Desktop\\Datos"
 @login_required(login_url='/ingresar')
