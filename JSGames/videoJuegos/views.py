@@ -448,11 +448,10 @@ def recomendarVideojuegos(request):
     juegosCliente = []
     juegosARecomendar = []
     recomendacion = []
-    boolean = True
     if existeUsuario(usuarioActual)==True:
         cliente = Cliente.objects.get(usuario=usuarioActual)
             
-        if len(cliente.videoJuegos.all())==0:
+        if cliente.videoJuegos.all()==None:
             return redirect(to="showGames_url")
         
         for v in cliente.videoJuegos.all():
