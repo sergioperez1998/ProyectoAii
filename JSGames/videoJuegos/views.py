@@ -14,10 +14,10 @@ from videoJuegos.forms import CustomUserForm, ClienteForm, BusquedaPorGeneroForm
 from django.contrib.auth.models import User
 from twisted.words.protocols.jabber import jstrports
 from django.template.defaulttags import ifequal
+from random import randint
 
-
-
-path="C:\\Users\\Usuario\\Desktop\\Universidad\\cuarto año\\AII\\Proyecto git\\ProyectoAii\\JSGames\\data"
+path="C:\\Users\\migue\\Desktop\\AII\\ProyectoAii\\JSGames\\data"
+#path="C:\\Users\\Usuario\\Desktop\\Universidad\\cuarto año\\AII\\Proyecto git\\ProyectoAii\\JSGames\\data"
 #path="C:\\Users\\sergi\\Desktop\\Mi Equipo\\Facultad\\CUARTO CURSO\\ACCESO INTELIGENTE A LA INFORMACION\\PROYECTO AII\\ProyectoAii\\JSGames\\data"
 #path = "C:\\Users\\sergi\\Desktop\\Datos"
 @login_required(login_url='/ingresar')
@@ -497,7 +497,7 @@ def mostrar_videoJuegos_genero(request):
               
         else:
             videoJuegos=VideoJuego.objects.all()
-            
+        
         if videoJuegos.exists():    
             return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente2.html', {'formulario':formulario, 'videoJuegos':videoJuegos, 'cadena':cadenaNombre})
         
@@ -556,7 +556,61 @@ def mostrarVideoJuegoAgregar(request, idVideoJuegos):
 
    
     
-    return render(request, 'videoJuegos/mostrarVideoJuego.html',{"videoJuego":videoJuego,'generos':generos})  
+    return render(request, 'videoJuegos/mostrarVideoJuego.html',{"videoJuego":videoJuego,'generos':generos})
+
+def recomendarVideojuegos(request):
+
+    idUsuario = request.user.id
+    usuarioActual = get_object_or_404(User, pk=idUsuario)
+    generosCliente = []
+    juegosCliente = []
+    juegosARecomendar = []
+    recomendacion = []
+    boolean = True
+    if existeUsuario(usuarioActual)==True:
+        cliente = Cliente.objects.get(usuario=usuarioActual)
+
+        if not cliente.videoJuegos.all():
+            return redirect(to="showGames_url")
+        
+        for v in cliente.videoJuegos.all():
+            juegosCliente.append(v)
+            for g in v.generos.all():
+                if g not in generosCliente:
+                    generosCliente.append(g)
+
+        for v in VideoJuego.objects.all():
+            for g in v.generos.all():
+                if g in generosCliente:
+                    if v not in juegosARecomendar:
+                        juegosARecomendar.append(v)
+
+        for v in juegosCliente:
+            if v in juegosARecomendar:
+                juegosARecomendar.remove(v)
+        if len(juegosARecomendar)>5:
+            numero1 = randint(0, len(juegosARecomendar)-1)
+            numero2 = randint(0, len(juegosARecomendar)-1)
+            numero3 = randint(0, len(juegosARecomendar)-1)
+            numero4 = randint(0, len(juegosARecomendar)-1)
+            numero5 = randint(0, len(juegosARecomendar)-1)
+
+            recomendacion.append(juegosARecomendar[numero1])
+            if juegosARecomendar[numero2] not in recomendacion:
+                recomendacion.append(juegosARecomendar[numero2])
+            if juegosARecomendar[numero3] not in recomendacion:
+                recomendacion.append(juegosARecomendar[numero3])
+            if juegosARecomendar[numero4] not in recomendacion:
+                recomendacion.append(juegosARecomendar[numero4])
+            if juegosARecomendar[numero5] not in recomendacion:
+                recomendacion.append(juegosARecomendar[numero5])
+
+            return render(request, 'videoJuegos/recomendacion.html',{"recomendacion":recomendacion, "cliente":cliente, "boolean":boolean})
+            
+        else:
+            return render(request, 'videoJuegos/recomendacion.html',{"recomendacion":juegosARecomendar, "cliente":cliente, "boolean":boolean})
+    else:
+        return redirect(to="showGames_url")  
 
 
 

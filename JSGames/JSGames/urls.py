@@ -38,6 +38,7 @@ urlpatterns = [
     path('videoJuegos/showVideoGames/<idVideoJuegos>/<buscar>',mostrarVideoJuego, name="mostrarVideoJuego_url"),
     path('videoJuegos/showVideoGamesAgregar/<idVideoJuegos>/',mostrarVideoJuegoAgregar, name="mostrarVideoJuegoAgregar_url"),
     path('showUser/',views.showUser, name="show_data_url"),
+    path('recomendacion', views.recomendarVideojuegos, name="recomendacion"),
     path('logout/',LogoutView.as_view(), name="logout"),
     path('',views.startPage, name="startPage"),
     path('videoJuegos/mostrarVideoJuegosDelCliente2/',mostrar_videoJuegos_genero, name="buscarGenero_url"),
