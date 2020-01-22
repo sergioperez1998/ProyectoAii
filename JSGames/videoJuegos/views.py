@@ -586,7 +586,8 @@ def recomendarVideojuegos(request):
                         juegosARecomendar.append(v)
 
         for v in juegosCliente:
-            juegosARecomendar.remove(v)
+            if v in juegosARecomendar:
+                juegosARecomendar.remove(v)
         if len(juegosARecomendar)>5:
             numero1 = randint(0, len(juegosARecomendar)-1)
             numero2 = randint(0, len(juegosARecomendar)-1)
