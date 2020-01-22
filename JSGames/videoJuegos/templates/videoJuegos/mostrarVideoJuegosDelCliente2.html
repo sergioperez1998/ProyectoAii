@@ -10,7 +10,7 @@
     		<fieldset>
     			<legend>Busqueda de VideoJuegos por genero:</legend>
     			<p>{{cadena}}</p>
-				<input type="text" name="genero" id="genero" placeholder="genero"/>
+				<input type="text" name="genero" id="genero" placeholder="genero" required/>
     			
     			<input class="btn btn-success" type='submit' value='Realizar Busqueda'/>
     		</fieldset>
@@ -21,21 +21,21 @@
  
     	
 	
-	{% if videoJuegosCliente %}
+	{% if videoJuegos %}
 	 
 	<BR>
-	{%  with buscar='buscar' %}
+	
 	<div class="productos">
 	
 		<div class ="row center-xs">
 		
 		
-		{% for videoJuego in videoJuegosCliente %}
+		{% for videoJuego in videoJuegos %}
 			<div class ="col-xs-10 col-sm-6 col-md-4 producto">
-				<a href="{% url 'eliminarJuego_url' videoJuego.idVideoJuegos buscar %}"><img class="eliminar" alt="Eliminar" src="https://cdn.pixabay.com/photo/2017/02/23/08/46/garbage-2091534_960_720.png" width="15%" height="10%"></a>
+				<a href="{% url 'agregarJuego_url' videoJuego.idVideoJuegos %}">Agregar</a>
 				<div class="card">
 					
-					<a href="{% url 'mostrarVideoJuego_url' videoJuego.idVideoJuegos buscar %}"><img alt="imagen videoJuego" src={{videoJuego.urlImg}}></a>
+					<a href="{% url 'mostrarVideoJuegoAgregar_url' videoJuego.idVideoJuegos %}"><img alt="imagen videoJuego" src={{videoJuego.urlImg}}></a>
 		
 				</div>
 			</div>
@@ -47,14 +47,25 @@
 		
 	
 	</div>
-	{% endwith %}
+	
 	
 		{% endif %}
+		
+	{% if aviso %}
+	
+	<h5>{{aviso}}</h5>
+	
+	{% endif %}	
+		
+		
+		
+		
+		
 	
 
 	<hr>
 	<br>
 	
-	<a href="{% url 'inicio' %}" class="btn btn-success">Atras</a>
+	<a href="{% url 'showGames_url' %}" class="btn btn-success">Atras</a>
 {% endblock content %}
 </body>

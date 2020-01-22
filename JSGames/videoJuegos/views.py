@@ -471,7 +471,7 @@ def eliminarJuego(request, idVideoJuegos, buscar):
                 
 def mostrar_videoJuegos_genero(request):
     formulario = BusquedaPorGeneroForm()
-    videoJuegosCliente = None
+    
     genero=None
     cadenaNombre=''
     cadena=''
@@ -484,22 +484,32 @@ def mostrar_videoJuegos_genero(request):
     try:
         if request.method=='POST':
             formulario = BusquedaPorGeneroForm(request.POST)
-        
+          
+             
             if formulario.is_valid():
-                idUsuario =request.user.id
-                usuarioActual = get_object_or_404(User, pk=idUsuario)
-                cliente = Cliente.objects.get(usuario=usuarioActual)
-                videoJuegosClienteCompleto=cliente.videoJuegos.all()
+                videoJuegos=VideoJuego.objects.all()
                 nombreGenero=formulario.cleaned_data['genero']
-            
-            
                 genero = Genero.objects.get(nombre=nombreGenero.capitalize())
-           
-                videoJuegosCliente = videoJuegosClienteCompleto.filter(generos=genero)
+                videoJuegos = videoJuegos.filter(generos=genero)
+                print(videoJuegos)
+               
+                     
+              
+        else:
+            videoJuegos=VideoJuego.objects.all()
+            
+        if videoJuegos.exists():    
+            return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente2.html', {'formulario':formulario, 'videoJuegos':videoJuegos, 'cadena':cadenaNombre})
+        
+        else:
+            print('estoy aqui')
+            aviso='No se han encontrado videojuegos con ' + formulario.cleaned_data['genero'] 
+            return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente2.html', {'formulario':formulario, 'videoJuegos':videoJuegos, 'cadena':cadenaNombre, 'aviso':aviso})
+        
     except:
-        videoJuegosCliente=None       
-   
-    return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente2.html', {'formulario':formulario, 'videoJuegosCliente':videoJuegosCliente, 'cadena':cadenaNombre})
+        videoJuegos=[]
+        aviso='No se han encontrado videojuegos con ' + formulario.cleaned_data['genero'] 
+        return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente2.html', {'formulario':formulario, 'videoJuegos':videoJuegos, 'cadena':cadenaNombre, 'aviso':aviso})
 
 def mostrarVideoJuego(request, idVideoJuegos, buscar):
     

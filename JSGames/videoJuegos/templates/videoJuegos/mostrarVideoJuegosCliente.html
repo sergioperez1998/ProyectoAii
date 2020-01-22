@@ -2,7 +2,14 @@
 
 <body>
 {% block content %}
+<div class ="row center-xs">
+<div class ="col-xs-10 col-sm-8 col-md-8 producto">
 	<h1> Agregar Videojuegos </h1>
+</div>
+<div class ="col-xs-10 col-sm-4 col-md-4 producto">
+	<a href="{% url 'buscarGenero_url' %}" class="btn btn-success">Buscar videojuegos por generos</a>
+</div>
+	</div>
 	<hr>
 	<h2>-Juegos Pc-</h2>
 	<table class="table table-hover">
