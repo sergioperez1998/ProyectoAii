@@ -16,10 +16,10 @@ from twisted.words.protocols.jabber import jstrports
 from django.template.defaulttags import ifequal
 from random import randint
 
-path="C:\\Users\\migue\\Desktop\\AII\\ProyectoAii\\JSGames\\data"
+#path="C:\\Users\\migue\\Desktop\\AII\\ProyectoAii\\JSGames\\data"
 #path="C:\\Users\\Usuario\\Desktop\\Universidad\\cuarto año\\AII\\Proyecto git\\ProyectoAii\\JSGames\\data"
 #path="C:\\Users\\sergi\\Desktop\\Mi Equipo\\Facultad\\CUARTO CURSO\\ACCESO INTELIGENTE A LA INFORMACION\\PROYECTO AII\\ProyectoAii\\JSGames\\data"
-#path = "C:\\Users\\sergi\\Desktop\\Datos"
+path = "C:\\Users\\sergi\\Desktop\\Datos"
 @login_required(login_url='/ingresar')
 def populateDatabase(request):
     populateConsola()
