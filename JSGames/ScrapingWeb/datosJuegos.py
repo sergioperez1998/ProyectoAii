@@ -548,7 +548,11 @@ def crearTxtGeneros():
     file_object.write("Otro")
     file_object.close()
 
-crearTxtJuegosXboxOne()
+####################################################################################################################################
+# PARA PROBAR EL SCRAPING WEB DESCOMENTAR CUALQUIER 'crearTxtXXX' DONDE XXX SON LOS DATOS DE LOS VIDEOJUEGOS DE LAS CONSOLAS #
+####################################################################################################################################
+
+#crearTxtJuegosXboxOne()
 #crearTxtJuegosNintendoSwitch()
 #crearTxtJuegosPs4()
 #crearTxtJuegosPc()

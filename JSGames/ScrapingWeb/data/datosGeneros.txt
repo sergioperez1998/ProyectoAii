@@ -1,20 +1,19 @@
 NOMBRE
 Accion
-Aventuras
-Windows
-Lucha
-Indie
-RPG
-Mac
-Linux
-Arcade
-Plataforma
-Carreras
+Estrategia
 FPS / TPS
-Hack & Slash
-Deporte
+Aventuras
+RPG
+Carreras
+Indie
+Windows
+Simulacion
 Rompecabezas
-Simulacion
+Lucha
+Plataforma
 MMO
-Simulacion
+Arcade
+Musica
+Deporte
+Hack & Slash
 Otro
