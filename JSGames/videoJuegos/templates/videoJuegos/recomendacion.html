@@ -3,18 +3,14 @@
 {% block content %}
 <section>
 <h1>Videojuegos recomendados para el Cliente {{cliente.idCliente}}</h1>
-{% if boolean %}
-    {% if recomendacion %}
-        {% for v in recomendacion %}
-            <ul>Videojuego: {{v.nombre}} - Precio: {{v.precio}}</ul>
-        {% endfor %}
-    {% else %}
-        {% for v in juegosARecomendar %}
-            <ul>Videojuego: {{v.nombre}} - Precio: {{v.precio}}</ul>
-        {% endfor %}
-    {% endif %}
+{% if recomendacion %}
+    {% for v in recomendacion %}
+        <ul>Videojuego: {{v.nombre}} - Precio: {{v.precio}}</ul>
+    {% endfor %}
 {% else %}
-<a href="{% url 'showGames_url' %}" class="btn btn-success">Atras</a>
+    {% for v in juegosARecomendar %}
+        <ul>Videojuego: {{v.nombre}} - Precio: {{v.precio}}</ul>
+    {% endfor %}
 {% endif %}
 </section>
 <a href="{% url 'inicio' %}" class="btn btn-success">Atras</a>
