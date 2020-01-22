@@ -1,16 +1,28 @@
-{% extends "videoJuegos/baseContenido.html" %}
+{% extends "videoJuegos/baseContenidoCatalogo.html" %}
 <body>
 {% block content %}
 <section>
-<h1>Videojuegos recomendados para el Cliente {{cliente.idCliente}}</h1>
+<h1>Videojuegos recomendados para {{cliente.username}}</h1>
 {% if recomendacion %}
+	<div class ="row center-xs">
     {% for v in recomendacion %}
-        <ul>Videojuego: {{v.nombre}} - Precio: {{v.precio}}</ul>
+    	<div class ="col-xs-10 col-sm-6 col-md-4 producto">
+				<div class="card">
+					<a href="{% url 'mostrarVideoJuegoAgregar_url' v.idVideoJuegos %}"><img alt="imagen videoJuego" src={{v.urlImg}}></a>
+				</div>
+			</div>
     {% endfor %}
+    </div>
 {% else %}
+	<div class ="row center-xs">
     {% for v in juegosARecomendar %}
-        <ul>Videojuego: {{v.nombre}} - Precio: {{v.precio}}</ul>
+        <div class ="col-xs-10 col-sm-6 col-md-4 producto">
+				<div class="card">
+					<a href="{% url 'mostrarVideoJuegoAgregar_url' v.idVideoJuegos %}"><img alt="imagen videoJuego" src={{v.urlImg}}></a>
+				</div>
+			</div>
     {% endfor %}
+    </div>
 {% endif %}
 </section>
 <a href="{% url 'inicio' %}" class="btn btn-success">Atras</a>

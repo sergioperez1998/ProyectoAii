@@ -491,7 +491,6 @@ def mostrar_videoJuegos_genero(request):
                 nombreGenero=formulario.cleaned_data['genero']
                 genero = Genero.objects.get(nombre=nombreGenero.capitalize())
                 videoJuegos = videoJuegos.filter(generos=genero)
-                print(videoJuegos)
                
                      
               
@@ -502,7 +501,6 @@ def mostrar_videoJuegos_genero(request):
             return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente2.html', {'formulario':formulario, 'videoJuegos':videoJuegos, 'cadena':cadenaNombre})
         
         else:
-            print('estoy aqui')
             aviso='No se han encontrado videojuegos con ' + formulario.cleaned_data['genero'] 
             return render(request, 'videoJuegos/mostrarVideoJuegosDelCliente2.html', {'formulario':formulario, 'videoJuegos':videoJuegos, 'cadena':cadenaNombre, 'aviso':aviso})
         
